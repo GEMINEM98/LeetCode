@@ -1,0 +1,72 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+typedef struct ListNode Node;
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2)
+{
+    if(l1==NULL)
+    {
+        return l2;
+    }
+    if(l2==NULL)
+    {
+        return l1;
+    }
+    Node* rHead=NULL;// 结果链表
+    Node* last=NULL;// 记录rHead的最后一个结点
+    Node* c1=l1;// 遍历l1链表
+    Node* c2=l2;// 遍历l2链表
+    
+    while(c1!=NULL&&c2!=NULL)
+    {
+        if(c1->val<c2->val)
+        {
+            Node* next=c1->next;
+            // 把c1尾插到rHead
+            c1->next=NULL;
+            if(rHead==NULL)
+            {
+                rHead=c1;
+            }
+            else
+            {
+                last->next=c1;
+            }
+            last=c1;
+            c1=next;
+        }
+        else
+        {
+            Node* next=c2->next;
+            // 把c2尾插到rHead
+            c2->next=NULL;
+            if(rHead==NULL)
+            {
+                rHead=c2;
+            }
+            else
+            {
+                last->next=c2;
+            }
+            last=c2;
+            c2=next;
+        }
+    }
+    // 只是一个链表的结点被处理完了
+    // 剩余的结点一定至少比last中结点值要大
+    // last是现在rHead中的最后一个结点
+    if(c1!=NULL)
+    {
+        last->next=c1;
+    }
+    else
+    {
+        last->next=c2;
+    }
+    return rHead;
+}
