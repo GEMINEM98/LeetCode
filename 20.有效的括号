@@ -82,7 +82,7 @@ int StackSize(Stack* ps)// 栈大小
 	return ps->_top;// 下标表示几个元素
 }
 
-
+/*
 // 第一种方法：
 bool isValid(char * s)
 {
@@ -128,4 +128,60 @@ bool isValid(char * s)
         return true;
     }
     else return false; 
+}
+*/
+
+
+
+// 第二种方法：
+bool isValid(char * s)
+{
+    Stack st;
+  //  int count_left=0;
+   // int count_right=0;
+    StackInit(&st);
+    char* symbol[3]={"()","[]","{}"};
+    while(*s)
+    {
+        if(*s=='('||*s=='['||*s=='{')
+        {
+            StackPush(&st,*s);// 入栈
+          //  ++count_left;
+        }
+        else if(*s==')'||*s==']'||*s=='}')
+        {
+           // ++count_right;
+            
+            if(StackEmpty(&st))
+                return false;
+            
+            STDataType top=StackTop(&st);
+            StackPop(&st);
+            
+            for(size_t i=0;i<3;++i)
+            {
+                if(*s==symbol[i][1])
+                {
+                    if(top!=symbol[i][0])
+                    {
+                        StackDestory(&st);
+                        return false;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        ++s;
+    }  
+    /*
+    if(count_left!=count_right)
+    {
+        return false;
+    }
+    return true;
+    */
+    return StackEmpty(&st);//更简洁
 }
