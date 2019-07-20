@@ -1,0 +1,156 @@
+typedef int STDataType;
+typedef struct Stack
+{
+	STDataType* _a;//栈
+	size_t _top;//栈顶
+	size_t _capacity;//容量
+}Stack;
+
+void StackInit(Stack* ps);// 初始化
+void StackDestory(Stack* ps);// 销毁
+void StackPush(Stack* ps, STDataType x);// 入栈
+void StackPop(Stack* ps);// 出栈
+STDataType StackTop(Stack* ps);// 取栈顶元素
+bool StackEmpty(Stack* ps);// 判栈空
+int StackSize(Stack* ps);// 栈大小
+
+void StackInit(Stack* ps)// 初始化
+{
+	assert(ps);
+	ps->_a = NULL;
+	ps->_capacity = 0;
+	ps->_top = 0;
+}
+
+void StackDestory(Stack* ps)// 销毁
+{
+	assert(ps);
+	if (ps->_a != NULL)
+	{
+		free(ps->_a);
+		ps->_a = NULL;
+		ps->_top = 0;
+		ps->_capacity = 0;
+	}
+}
+
+void StackPush(Stack* ps, STDataType x)// 入栈
+{
+	assert(ps);
+	if (ps->_capacity == ps->_top)
+	{
+		size_t newcapacity = ps->_capacity == 0 ? 2 : ps->_capacity * 2;
+		ps->_a = (STDataType*)realloc(ps->_a, sizeof(STDataType)*newcapacity);
+		ps->_capacity = newcapacity;
+	}
+	ps->_a[ps->_top] = x;
+	ps->_top++;
+}
+
+void StackPop(Stack* ps)// 出栈
+{
+	assert(ps&&ps->_top > 0);
+	--ps->_top;// 直接挪动下标即可
+}
+
+STDataType StackTop(Stack* ps)// 取栈顶元素
+{
+	assert(ps&&ps->_top > 0);
+	return (ps->_a[ps->_top - 1]);
+	//return ps->_top - 1; // 这是错误的，因为ps->_top是下标，不是该下标代表的元素！！！！！！！！！！！
+
+}
+
+bool StackEmpty(Stack* ps)// 判栈空
+{
+	assert(ps);
+	return ps->_top == 0;// 看下标是否为0
+}
+
+int StackSize(Stack* ps)// 栈大小
+{
+	assert(ps);
+	return ps->_top;// 下标表示几个元素
+}
+
+
+// ****************************************************
+
+typedef struct 
+{
+    Stack pushst;
+    Stack popst;
+} MyQueue;
+
+/** Initialize your data structure here. */
+
+MyQueue* myQueueCreate() 
+{
+    MyQueue* queue=(MyQueue*)malloc(sizeof(MyQueue));
+    StackInit(&queue->pushst);
+    StackInit(&queue->popst);
+    return queue;
+}
+
+/** Push element x to the back of queue. */
+void myQueuePush(MyQueue* obj, int x) // 入队列
+{
+    StackPush(&obj->pushst,x);
+}
+
+/** Removes the element from in front of queue and returns that element. */
+int myQueuePop(MyQueue* obj) // 出队列
+{
+    if(StackEmpty(&obj->popst))// 空
+    {
+        while(!StackEmpty(&obj->pushst))
+        {
+            StackPush(&obj->popst,StackTop(&obj->pushst));
+            StackPop(&obj->pushst);// pushst入栈popst后，要删除原来的元素
+        }
+    }
+    int top=StackTop(&obj->popst);
+    StackPop(&obj->popst);
+    return top;
+}
+
+/** Get the front element. */
+int myQueuePeek(MyQueue* obj) 
+{
+    if(StackEmpty(&obj->popst))
+    {
+        while(!StackEmpty(&obj->pushst))
+        {
+            StackPush(&obj->popst,StackTop(&obj->pushst));
+            StackPop(&obj->pushst);// pushst入栈popst后，要删除原来的元素
+        }
+    }
+    return StackTop(&obj->popst);
+}
+
+/** Returns whether the queue is empty. */
+bool myQueueEmpty(MyQueue* obj) 
+{
+    return StackEmpty(&obj->pushst)&&StackEmpty(&obj->popst);
+}
+
+void myQueueFree(MyQueue* obj) 
+{
+    StackDestory(&obj->pushst);    
+    StackDestory(&obj->popst);
+    free(obj);
+}
+
+/**
+ * Your MyQueue struct will be instantiated and called as such:
+ * MyQueue* obj = myQueueCreate();
+ * myQueuePush(obj, x);
+ 
+ * int param_2 = myQueuePop(obj);
+ 
+ * int param_3 = myQueuePeek(obj);
+ 
+ * bool param_4 = myQueueEmpty(obj);
+ 
+ * myQueueFree(obj);
+*/
