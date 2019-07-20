@@ -195,7 +195,7 @@ void myStackFree(MyStack* obj)
 {
     QueueDestory(&obj->queue1);
     QueueDestory(&obj->queue2);
-    return 0;
+    free(obj);
 }
 
 /**
