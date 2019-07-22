@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+typedef struct TreeNode Node;   
+int Size(Node* root)// 二叉树的深度
+{
+    if(root==NULL)
+        return 0;
+    return Size(root->left)+Size(root->right)+1;
+}
+
+void _preorder(Node* root,int* array,int* i) // 前序遍历
+{
+    if(root==NULL)
+        return NULL;
+
+    array[*i]=root->val;
+    ++(*i);
+    
+    _preorder(root->left,array,i);
+    _preorder(root->right,array,i);
+}
+
+int* preorderTraversal(struct TreeNode* root, int* returnSize)// 前序遍历（根左右）
+{
+    *returnSize=Size(root);// 算大小
+    int* array=NULL;
+    array=(int*)malloc(*returnSize*sizeof(int));// 开空间
+    
+    int i=0;
+    _preorder(root,array,&i);
+    return array;
+}
