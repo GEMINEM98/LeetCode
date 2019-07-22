@@ -12,7 +12,7 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 typedef struct TreeNode Node;   
-int Size(Node* root)// 二叉树的深度
+int Size(Node* root)// 二叉树的结点个数
 {
     if(root==NULL)
         return 0;
