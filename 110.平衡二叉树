@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+typedef struct TreeNode Node;
+int _TreeDepth(Node* root)// 先求出树的高度
+{
+    if(root==NULL)
+        return 0;
+    int left=_TreeDepth(root->left);
+    int right=_TreeDepth(root->right);
+    return left>right?left+1:right+1;
+}
+
+bool isBalanced(struct TreeNode* root) // 判断是否为平衡二叉树
+{
+    if(root==NULL)
+        return true;
+    int left=_TreeDepth(root->left);
+    int right=_TreeDepth(root->right);
+    
+    // 先判断当前树，再判断左子树，最后判断右子树
+    return(abs(left-right)<2&&isBalanced(root->left)&&isBalanced(root->right));
+}
