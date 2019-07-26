@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+void Swap(int** a,int** b)
+{
+    int* x=*a;
+    *a=*b;
+    *b=x;
+}
+struct TreeNode* invertTree(struct TreeNode* root)
+{
+    if(root==NULL)
+        return NULL;
+    Swap(&root->left,&root->right);
+    int* left=invertTree(root->left);
+    int* right=invertTree(root->right);
+    Swap(&left,&right);
+    return root;
+}
