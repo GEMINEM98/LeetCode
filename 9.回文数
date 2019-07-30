@@ -1,0 +1,20 @@
+bool isPalindrome(int x)
+{
+    if(x<0)
+        return false;
+    if(x==0)
+        return true;
+    
+    int tmp=x; // 存放x的值，避免x被修改
+    long new=0; // 定义一个新整数
+    
+    while(x!=0)
+    {
+        new=new*10;
+        new=new+x%10;
+        x/=10;
+    }
+    if(new==tmp)
+        return true;
+    else return false;
+}
