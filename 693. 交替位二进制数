@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool hasAlternatingBits(int n) 
+    {
+        int count=32;
+        int i=0;
+        int j=0;
+        while(count)
+        {
+            if((n>>(count-1))&1==1)
+                break;
+            count--;
+        }// 此时，count的位置是高位第一个1的位置
+        
+        for(i=0,j=1;i<=count,j<=count;++i,++j)
+        {
+            if(((n>>i)&1)==((n>>j)&1)) // 两两相比
+                break;
+        }
+        if(i>count||j>count)
+            return true;
+        else
+            return false;
+    }
+};
