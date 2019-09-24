@@ -1,0 +1,51 @@
+int min1(a,b,c)
+{
+    return a<b?(a<c?a:c):(b>c?c:b);
+}
+int min2(a,b)
+{
+    return a>b?b:a;
+}
+
+int maxNumberOfBalloons(char * text)
+{
+    char select;
+    char* p=text;
+    int bcount=0;
+    int acount=0;
+    int lcount=0;
+    int ocount=0;
+    int ncount=0;
+
+    while(*p)
+    {
+        select=*p;
+        switch(select)
+        {
+            case 'b':
+                ++bcount;
+                break;
+            case 'a':
+                ++acount;
+                break;
+            case 'l':
+                ++lcount;
+                break;
+            case 'o':
+                ++ocount;
+                break;
+            case 'n':
+                ++ncount;
+                break;
+            default:
+                break;
+        }
+        ++p;
+    }
+    int tmp1=min1(bcount,acount,ncount);
+    int tmp2=min2(lcount,ocount);
+    int flag=min2(tmp1,tmp2/2);
+    return flag;
+    return 0;
+}
+
