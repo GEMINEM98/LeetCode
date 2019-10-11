@@ -1,0 +1,40 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* partition(struct ListNode* head, int x)
+{
+    // 用两个链表分别表示x左右两边的结点，最后连接起来
+    
+    if(head==NULL)
+        return NULL;
+    
+    struct ListNode smallnode;
+    struct ListNode* small=&smallnode;
+    struct ListNode bignode;
+    struct ListNode* big=&bignode;
+    struct ListNode* cur=&bignode;
+    
+    while(head!=NULL)
+    {
+        if(head->val<x)
+        {
+            small->next=head;
+            small=small->next;
+        }
+        else
+        {
+            big->next=head;
+            big=big->next;
+        }
+        head=head->next;
+    }
+    big->next=NULL;
+    small->next=cur->next;
+    return smallnode.next;
+}
