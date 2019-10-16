@@ -1,3 +1,4 @@
+//代码中注释掉的是第二种方法
 class Solution {
 public:
     string addStrings(string num1, string num2) 
@@ -30,12 +31,15 @@ public:
             else tmp=0;
             
             str.insert(str.begin(),add+'0');//前插   
+            //str+=('0'+add);
         }
         
         if(tmp==1)//前插最后的进位
         {
             str.insert(str.begin(),'1');
+            //str+='1';
         }
+        //reverse(str.begin(),str.end());
         return str;
     }
 };
