@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) 
+    {
+        string str;//两个字符串相加后的新串
+        int count1=num1.size()-1;//num1字符个数
+        int count2=num2.size()-1;//num2字符个数
+        int tmp=0;//进位
+        
+        while(count1>=0||count2>=0)//长的走完才算完
+        {
+            int val1,val2,add;//字符串转换为整型的值
+            if(count1>=0)
+            {
+                val1=num1[count1--]-'0';
+            }
+            else val1=0;
+            if(count2>=0)
+            {
+                val2=num2[count2--]-'0';
+            }
+            else val2=0;
+            
+            add=val1+val2+tmp;
+            if(add>9)
+            {
+                add-=10;
+                tmp=1;
+            }
+            else tmp=0;
+            
+            str.insert(str.begin(),add+'0');//前插   
+        }
+        
+        if(tmp==1)//前插最后的进位
+        {
+            str.insert(str.begin(),'1');
+        }
+        return str;
+    }
+};
