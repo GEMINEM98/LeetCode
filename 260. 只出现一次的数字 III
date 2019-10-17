@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) 
+    {
+        int tmp=nums[0];    // 记录数组的异或结果
+        int j=1; 
+        
+        vector<int> res(2,0);// 存放结果的vector，两个元素赋初值为0 
+        int a=0,b=0;
+        
+        for(int i=1;i<nums.size();++i)
+        {
+            tmp^=nums[i];
+        }
+        
+       //求出异或结果为1的某一位（这个结果是那两个数的异或值）
+        while(1)
+        {
+            if((tmp&j)==j)  // &比==优先级低，要加括号
+                break;
+            j<<=1;
+        }
+        
+        for(int k=0;k<nums.size();++k)
+        {
+            if((nums[k]&j)==j) // 当数组中的数这一位对应的数字是1的话，和aa相与
+                a^=nums[k];
+            else             // 当数组中的数这一位对应的数字是0的话，和bb相与 
+                b^=nums[k];
+        }
+        
+        res[0]=a;
+        res[1]=b;
+        return res;
+    }
+};
