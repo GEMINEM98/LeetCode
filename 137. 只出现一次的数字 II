@@ -1,0 +1,74 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) 
+    {
+        int val=0;
+        int count[32]={0};
+        vector<int> v(count,count+sizeof(count)/sizeof(int));
+        
+        // 先把vector中每个数在32个位上1出现的次数加起来，放进count数组中计数
+        for(int k=0;k<nums.size();++k)
+        {
+            for(int i=0;i<v.size();++i)
+            {
+                if(((nums[k]>>i)&1)==1)
+                {
+                    v[i]++;
+                }
+            }
+        }
+
+        // 数组count中存放的是二进制位上1出现的次数
+        // 题目说只有一个数出现一次，其余数都出现3次
+        // 所以，count中元素%3==1 就说明，单独的那个数在这个二进制位上是1
+        // 二进制位是1的组成一个数字，就是所求数字
+        for(int j=0;j<v.size();++j)
+        {
+            if(v[j]%3==1)
+            {
+                int flag=0;
+                flag=((flag>>j)|1)<<j;
+                val=val+flag;
+            }
+        }
+        return val;
+    }
+};
+
+
+// ************************************************* 
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) 
+    {
+        int val=0;
+        int count[32]={0};
+        
+        // 先把vector中每个数在32个位上1出现的次数加起来，放进count数组中计数
+        for(int k=0;k<nums.size();++k)
+        {
+            for(int i=0;i<32;++i)
+            {
+                if(((nums[k]>>i)&1)==1)
+                {
+                    count[i]++;
+                }
+            }
+        }
+
+        // 数组count中存放的是二进制位上1出现的次数
+        // 题目说只有一个数出现一次，其余数都出现3次
+        // 所以，count中元素%3==1 就说明，单独的那个数在这个二进制位上是1
+        // 二进制位是1的组成一个数字，就是所求数字
+        for(int j=0;j<32;++j)
+        {
+            if(count[j]%3==1)
+            {
+                int flag=0;
+                flag=((flag>>j)|1)<<j;
+                val=val+flag;
+            }
+        }
+        return val;
+    }
+};
