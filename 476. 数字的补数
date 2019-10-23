@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int findComplement(int num) 
+    {
+        // flag作为标记，初值置为0
+        // num右移，并且flag左移，循环退出时，num的有效位数和flag中1的个数相等
+        // num^flag 就能得到结果
+        
+        int flag=0;
+        int _num=num;
+        while(_num>0)
+        {
+            _num>>=1;
+            flag=(flag<<1)+1;
+        }
+
+        return num^flag;
+    }
+};
