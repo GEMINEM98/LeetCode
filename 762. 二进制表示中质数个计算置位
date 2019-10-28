@@ -1,0 +1,47 @@
+class Solution {
+public:
+    
+    int count=0; // 记录置位位数
+    int count1=0; // 判断置位位数为质数的整数个数
+    
+    // 计算置位位数
+    int calculation(int num)
+    {
+        count=0;
+        for(int i=0;i<32;++i)
+        {
+            if((num>>i)&1==1)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    // 判断是否为质数
+    bool prime(int count)
+    {
+        if(count>1)
+        {
+            for(int j=2;j<=(count/2);++j)
+            {
+                if(count%j==0)
+                    return false;
+            }
+            return true;
+        }
+        else return false;
+    }
+    
+    int countPrimeSetBits(int L, int R) 
+    {
+        int num=L;
+        while(num>=L&&num<=R)
+        {
+            if(prime(calculation(num)))
+                count1++;
+            ++num;
+        }
+        return count1;
+    }
+};
