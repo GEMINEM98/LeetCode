@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) 
+    {
+        sort(arr.begin(),arr.end());//先排序
+        vector<vector<int>> tmp;//返回值
+        vector<int> flag;//标记元素
+        int min=arr[1]-arr[0];
+        for(int i=1;i<arr.size();++i)// 控制arr数据元素的遍历
+        {
+            if(arr[i]-arr[i-1]<min)
+            {
+                tmp.clear();//清空
+                flag.clear();
+                flag.push_back(arr[i-1]);
+                flag.push_back(arr[i]);
+                tmp.push_back(flag);
+                min=arr[i]-arr[i-1];
+            }
+            else if(arr[i]-arr[i-1]==min)
+            {
+                flag.clear();
+                flag.push_back(arr[i-1]);
+                flag.push_back(arr[i]);
+                tmp.push_back(flag);
+            }
+        }
+        return tmp;
+    }
+};
