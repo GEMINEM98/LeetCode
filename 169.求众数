@@ -1,3 +1,30 @@
+
+//先排序，再判断中间数在数组中出现的次数是否大于数组长度的一半
+class Solution {
+public:
+    int majorityElement(vector<int>& nums)
+    {
+        sort(nums.begin(),nums.end());
+        int count=0;
+        int tmp=nums.size()/2;
+        for(int i=0;i<nums.size();++i)
+        {
+            if(nums[i]==nums[tmp])
+            {
+                count++;
+            }
+        }
+        if(count>tmp)
+            return nums[tmp];
+        return 0;
+    }
+    
+};
+
+
+/*
+
+//勉强对了，但是不靠谱
 class Solution {
 public:
     int majorityElement(vector<int>& nums) 
@@ -19,3 +46,4 @@ public:
         }
     }
 };
+*/
