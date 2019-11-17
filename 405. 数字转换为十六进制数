@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string toHex(int num) {
+        unsigned int n=num;//补码
+        unsigned int cal=0xf;//4个1
+        unsigned int tmp=0xf;
+        if(n==0)
+            return "0";
+        string s;
+        char ch[16]={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        for(int i=0;i<32;i+=4)
+        {
+            tmp=(n&cal)>>i;
+            s=ch[tmp]+s;
+            cal<<=4;
+        }
+        for(int i=0;i<s.size();++i)
+        {
+            if(s[i]=='0')
+            {
+                s.erase(0,1);
+                --i;
+            }
+            else break;
+        }
+        return s;
+    }
+};
