@@ -1,0 +1,44 @@
+
+//https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+
+    bool Find(TreeNode* root, TreeNode* node)
+    {
+        if(root==nullptr)
+            return false;
+        if(root==node)
+            return true;
+        if(Find(root->left,node))
+            return true;
+        if(Find(root->right,node))
+            return true;
+        return false;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) 
+    {
+        if(root==p||root==q) //判断p和q是否为根结点
+            return root;
+        bool pinl=Find(root->left,p);  //判断p结点是否在左子树
+        bool pinr=!pinl;
+        bool qinl=Find(root->left,q); //判断q结点是否在左子树
+        bool qinr=!qinl;
+        if((pinl&&qinr)||(pinr&&qinl)) //如果两个结点一个在左，一个在右，则该结点就是最近公共祖先
+            return root;
+        else if(pinl&&qinl) //当两个结点都在左子树时，递归查找
+            return lowestCommonAncestor(root->left,p,q);
+        else                //当两个结点都在右子树时，递归查找
+            return lowestCommonAncestor(root->right,p,q);
+    }
+};
