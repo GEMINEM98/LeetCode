@@ -1,0 +1,63 @@
+
+/*
+思路：
+用两个队列实现：
+nodequeue存的是二叉树的结点，先存一个结点，然后一个出队的时候，把它的左右孩子结点入队，
+levelqueue存的是对应结点的层数，
+每循环一次，都要更新层数
+用vector<vector<int>>存储返回值
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) 
+    {
+        queue<TreeNode*> nodequeue;//存结点
+        queue<int> levelqueue;//存结点对应的层数
+        vector<vector<int>> vv; //保存结果
+
+        if(root!=nullptr) //队列开始存数据
+        {
+            nodequeue.push(root);
+            levelqueue.push(0);
+        }
+        int curlev=-1; //当前结点的层数
+        while(!nodequeue.empty()) //如果结点队列不为空
+        {
+            TreeNode* node=nodequeue.front();//取出一个结点
+            nodequeue.pop();
+            int level=levelqueue.front(); //取出一个层数
+            levelqueue.pop();
+
+            if(curlev<level) //该下一行了
+            {
+                vv.push_back(vector<int>());//相当于每层的首地址
+                curlev=level; //更新当前层数
+            }
+
+            vv[level].push_back(node->val);//结点存到vector
+
+            if(node->left)
+            {
+                nodequeue.push(node->left);
+                levelqueue.push(level+1);
+            }
+            if(node->right)
+            {
+                nodequeue.push(node->right);
+                levelqueue.push(level+1);
+            }
+        }
+        return vv;
+    }
+};
