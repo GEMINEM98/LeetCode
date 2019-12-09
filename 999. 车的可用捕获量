@@ -1,0 +1,76 @@
+
+/*
+思路：
+先找到车所在的位置；
+一共有东南西北四个方向可以走，碰到边界/白棋/'B'停止；
+一次移动就是四个方向分别遍历一边；
+返回计数即可。
+*/
+
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& board) 
+    {
+        int row=board.size();
+        int col=board[0].size();
+
+        int x=0,y=0;
+        for(int i=0;i<row;++i)
+        {
+            for(int j=0;j<col;++j)
+            {
+                if(board[i][j]=='R')
+                {
+                    x=i;
+                    y=j;
+                }
+            }
+        }
+        
+        int sum=0;
+        for(int i=x-1;i>=0;--i)  // 向北
+        {
+            if(board[i][y]=='p')
+            {
+                ++sum;
+                break;
+            }
+            if(board[i][y]=='B')
+                break;
+        }
+
+        for(int i=x+1;i<row;++i)  // 向南
+        {
+            if(board[i][y]=='p')
+            {
+                ++sum;
+                break;
+            }
+            if(board[i][y]=='B')
+                break;
+        }
+
+        for(int i=y+1;i<col;++i)  // 向东
+        {
+            if(board[x][i]=='p')
+            {
+                ++sum;
+                break;
+            }
+            if(board[x][i]=='B')
+                break;
+        }
+
+        for(int i=y-1;i>=0;--i)  // 向西
+        {
+            if(board[x][i]=='p')
+            {
+                ++sum;
+                break;
+            }
+            if(board[x][i]=='B')
+                break;
+        }
+        return sum;
+    }
+};
