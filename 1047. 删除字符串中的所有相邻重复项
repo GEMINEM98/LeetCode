@@ -1,0 +1,34 @@
+
+/*
+思路：
+由题意可知，重复的字符需要完全删除，所以用栈比较好实现；
+先定义一个栈stk，遍历字符串S；
+如果S的元素等于栈顶元素，就删除栈顶元素，接着比较S的下一个元素；
+如果S的元素不等于栈顶元素，就入栈；
+结束后，根据返回值，将栈中元素存到一个string中；
+由于栈中元素先进先出，所以结果需要逆序。
+*/
+
+class Solution {
+public:
+    string removeDuplicates(string S) 
+    {
+        stack<char> stk;
+        for(int i=0;i<S.size();++i)
+        {
+            if(stk.empty()||S[i]!=stk.top())
+                stk.push(S[i]);
+            else
+                stk.pop();
+        }
+
+        string SS;
+        while(!stk.empty())
+        {
+            SS+=stk.top();
+            stk.pop();
+        }
+        reverse(SS.begin(),SS.end());
+        return SS;
+    }
+};
