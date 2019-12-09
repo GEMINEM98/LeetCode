@@ -1,0 +1,42 @@
+
+/*
+思路：
+先求出各个位上的和，
+如果是大于等于10，就继续递归
+如果是小于10的数，就返回。
+*/
+
+// 初阶： 递归：
+class Solution {
+public:
+    int addDigits(int num) 
+    {
+        int add=0;
+        while(num/10)
+        {
+            add+=num%10;
+            num/=10;
+        }
+        add+=num%10;
+
+        if(add>=10)
+            return addDigits(add);
+        else return add;
+    }
+};
+
+
+/*  进阶：O(1)
+class Solution {
+public:
+    int addDigits(int num) 
+    {
+        if(num==0)
+            return 0;
+        if(num%9==0)
+            return 9;
+        
+        return num%9;
+    }
+};
+*/
