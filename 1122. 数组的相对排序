@@ -1,0 +1,35 @@
+
+/*
+思路：
+根据题意，首先需要将arr1数组中的元素看做两部分，一部分是arr2中出现过的，另一部分是剩下的；
+在返回的vector v 中，将arr1和arr2遍历，将相同的元素直接push_back，并且这也保持了相对顺序；
+在上一步push_back的同时，将出现过的元素从arr1中删除，把剩下的元素排好序，直接放到v的后半部分；
+注意：vector的迭代器失效
+*/
+
+
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) 
+    {
+        vector<int> v;
+        for(auto it2=arr2.begin();it2!=arr2.end();++it2)
+        {
+            for(auto it1=arr1.begin();it1!=arr1.end();++it1)
+            {
+                if(*it1==*it2)
+                {
+                    v.push_back(*it1);
+                    arr1.erase(it1);
+                    --it1;
+                }
+            }
+        }
+        sort(arr1.begin(),arr1.end());
+        for(auto e:arr1)
+        {
+            v.push_back(e);
+        }
+        return v;
+    }
+};
