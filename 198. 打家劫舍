@@ -1,0 +1,28 @@
+
+/*
+思路：
+根据题意：我们会发现，小偷不能偷相邻两个房间的东西，所以遍历的时候要注意这个条件
+首先，在前面两个房间中只能选择一间，后面的房间根据前面间隔的房间物品价值决定，更新每个元素的价值。
+状态方程：
+当i=1时：f(i)=nums[0];
+当i=i时：f(i)=max(nums[i-2]+nums[i],nums[i-1]);
+*/
+
+
+class Solution {
+public:
+    int rob(vector<int>& nums) 
+    {
+        if(nums.size()==0)
+            return 0;
+        if(nums.size()==1)
+            return nums[0];
+        nums[0]=nums[0];
+        nums[1]=max(nums[0],nums[1]);
+        for(int i=2;i<nums.size();++i)
+        {
+            nums[i]=max(nums[i-2]+nums[i],nums[i-1]);
+        }    
+        return nums[nums.size()-1];
+    }
+};
