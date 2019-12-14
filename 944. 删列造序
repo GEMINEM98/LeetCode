@@ -1,0 +1,40 @@
+
+/*
+思路：
+首先根据题目可知：
+数组A中的对应列都是一样长的，所以我们可以只看A的列，循环条件是数组有多少列
+遍历A的列，定义一个vector，用来存放每一列的数据；
+存好了的vector，判断其是否是降序；
+是降序，++count；否则进行下一次循环。
+
+*/
+
+
+class Solution {
+public:
+    int minDeletionSize(vector<string>& A) 
+    {
+        int count=0;
+        vector<char> v;
+        for(int j=0;j<A[0].size();++j)
+        {
+            for(int i=0;i<A.size();++i)
+            {
+                v.push_back(A[i][j]);
+            }
+            int k=0;
+            for(k=1;k<v.size();++k)
+            {
+                if(v[k]<v[k-1])
+                    break;
+            }
+            if(k!=v.size())
+            {
+                ++count;
+            }  
+            v.clear(); 
+        }
+        return count;
+    }
+};
+
