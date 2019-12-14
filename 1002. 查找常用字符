@@ -1,0 +1,39 @@
+
+
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) 
+    {
+        int row=A.size();
+        vector<vector<int>> v(row,vector<int>(26));  // 定义一个二维数组，每一行存的是每个单词字母出现的次数
+        vector<string> sv;
+        for(int i=0;i<row;++i)
+        {
+            for(int j=0;j<A[i].size();++j)
+            {
+                v[i][A[i][j]-'a']++;
+            }
+        }
+        for(int j=0;j<26;++j) 
+        {
+            for(int i=0;i<row;++i)
+            {
+                v[0][j]=min(v[0][j],v[i][j]);   // 将每个字母出现的最小次数都更新到第一行
+            }
+        }
+        string s;
+        for(int j=0;j<26;++j)
+        {
+            if(v[0][j])  // 筛选出公共字母
+            {
+                while(v[0][j]--)  // 表示该字母存进vector的次数，也就是打印次数
+                {
+                    s='a'+j;
+                    sv.push_back(s);
+                    s.clear();
+                }
+            }
+        }
+        return sv;
+    }
+};
