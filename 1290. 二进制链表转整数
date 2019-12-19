@@ -1,0 +1,41 @@
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+
+//十进制转二进制：除2取余
+//二进制转十进制：将上面的过程反着来
+// 例如：十进制10转二进制
+//    10/2=5--0
+//     5/2=2--1
+//     2/2=1--0
+//     1/2=0--1
+// 得到的二进制：1010
+// 反着来，将二进制1010转十进制
+//     0*2+1=1
+//     1*2+0=2
+//     2*2+1=5
+//     5*2+0=10
+// 得到的十进制：10
+
+
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        ListNode* cur = head;
+        int num = 0;
+        while (cur != nullptr) {
+            num = num * 2 + cur->val;
+            cur = cur->next;
+        }
+        return num;
+    }
+};
+
