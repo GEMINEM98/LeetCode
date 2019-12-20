@@ -1,0 +1,32 @@
+
+/*
+思路：
+从右往左遍历数组元素，每一个元素+K，取低位的值放进vector，更新K值，继续+下一个元素；
+注意：当数组遍历完毕，K值大于0的情况。
+例如：[2,1,5] K=806
+5+K=811=K  v[i]=811%10   K=K/10;
+1+K=82=K   v[++i]=82%10  K=K/10;
+2+K=10=K   v[++i]=10%10  K=K/10;
+此时，K=1，v[++i]=K;
+翻转输出：[1,0,2,1]
+*/
+
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& A, int K) 
+    {
+        vector<int> v;
+        int tmp=0;
+        for(int i=A.size()-1;i>=0||K>0;--i) // 当数组遍历完毕时，还需要看K是否大于0，如果K大于0，则需要继续拆分K
+        {
+            if(i>=0)
+            {
+                K=A[i]+K;
+            }
+            v.push_back(K%10);
+            K/=10;
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};
