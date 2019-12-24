@@ -1,0 +1,30 @@
+
+/*
+
+思路：
+因为我们要尽可能满足更多的孩子，所以在饼干尺寸中匹配符合的胃口值；
+需要注意遍历时的边界问题。
+
+*/
+
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) 
+    {
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int gi=0;
+        int si=0;
+        int sum=0; // 记录最多满足孩子的总数
+        for(si=0;si<s.size();++si) // 遍历饼干尺寸
+        {
+            if(gi<g.size()&&s[si]>=g[gi])
+            {
+                ++sum;
+                ++gi;
+            }
+        }
+        return sum;
+    }
+};
