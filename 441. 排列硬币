@@ -1,0 +1,27 @@
+/*
+
+思路：
+从n中减去每层的个数，每层的个数就是层数，
+每循环一行，进行判断剩余的硬币够不够凑成完整一行。
+
+*/
+
+class Solution {
+public:
+    int arrangeCoins(int n) 
+    {
+        int i=1; // 记录当前的行数
+
+        if(n==0)
+            return 0;
+        if(n==1)
+            return 1;
+
+        while(n>=i)
+        {
+            n-=i;
+            ++i;
+        }
+        return i-1;
+    }
+};
