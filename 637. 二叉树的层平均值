@@ -1,0 +1,53 @@
+
+/*
+
+思路：
+题目要求返回的是二叉树每一层的平均值，所以，需要进行层序遍历每一层的结点，注意，每一层结点不一定满；
+1、定义一个queue，用来存放二叉树的每一层结点；
+2、在遍历二叉树的时候，每遍历一层，就用sum记录该层结点之和，并删掉该层结点，避免影响后面存放下一层的子结点，用vector存放每层平均值；
+3、当下一层没有结点时，即队列为空，循环结束；
+4、返回vector。
+
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    vector<double> averageOfLevels(TreeNode* root) 
+    {
+        queue<TreeNode*> q;
+        q.push(root);
+        vector<double> v;
+        if(root==NULL)
+            return v;
+
+        while(!q.empty())
+        {
+            double sum=0; // 每一层的数据之和
+            int i=0; // 遍历每一层的结点
+            int sz=q.size(); // 每一层的结点数
+            while(i<sz) // 遍历当前这一层，求出层结点之和
+            {
+                TreeNode* cur=q.front();
+                sum+=cur->val;
+                q.pop();
+                if(cur->left)
+                    q.push(cur->left);
+                if(cur->right)
+                    q.push(cur->right);
+                ++i;
+            }
+            v.push_back(sum/sz);
+        }
+        return v;
+    }
+};
