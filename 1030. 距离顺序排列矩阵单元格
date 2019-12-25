@@ -1,0 +1,48 @@
+
+/*
+
+思路：
+从这个题目可以看出，我们需要返回一个二维vector，并且这个vector中的元素是根据曼哈顿距离排好序的；
+所以，需要将距离int和二维vector联系起来，用multimap解：
+
+1. multimap中，第一个key值是距离，第二个是值是一个存储点坐标的vector；
+2. 循环遍历这个单元格，求出每个单元格相对于指定点的距离，并将此时的距离和坐标存入multimap；
+3. 循环完毕，将multimap中的第二个值存入返回类型vector<vector<int>>中，因为题目要求只返回坐标集合。
+
+*/
+
+
+
+class Solution {
+public:
+
+    int Distance(int a,int b,int r0,int c0) //求曼哈顿距离
+    {
+        return abs(a-r0)+abs(b-c0);
+    }
+
+    vector<vector<int>> allCellsDistOrder(int R, int C, int r0, int c0) 
+    {
+        multimap<int,vector<int>> mtm;
+        vector<vector<int>> vv;
+        vector<int> flag(2);
+        int dis=0;
+
+        for(int i=0;i<R;++i)
+        {
+            for(int j=0;j<C;++j)
+            {
+                dis=Distance(i,j,r0,c0);
+                flag[0]=i;
+                flag[1]=j;
+                mtm.insert(make_pair(dis,flag));
+                // mtm.insert(make_pair(dis,{i,j}));
+            }
+        }
+        for(auto e : mtm)
+        {
+            vv.push_back(e.second);
+        }
+        return vv;
+    }
+};
