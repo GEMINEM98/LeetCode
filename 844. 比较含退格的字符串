@@ -1,0 +1,57 @@
+
+/*
+思路：
+
+分析题目：
+把给定字符串中'#'字符左边的小写字母删除，有几个'#'就删除几个小写字母；
+如果左边没有小写字母了，就什么也不用做；更新的字符串不包含'#'；
+判断两个字符串是否相等。
+
+因为删除元素的时候是有几个删几个，这里用stack解：
+将两个字符串遍历，不是'#'就入栈；是'#'，有元素则出栈，栈空则什么也不做；
+最后判断两个栈中的元素是否都相等。
+
+*/
+
+class Solution {
+public:
+    bool backspaceCompare(string S, string T) 
+    {
+        stack<int> s;
+        stack<int> t;
+        for(int i=0;i<S.size();++i)
+        {
+            if(S[i]!='#')
+                s.push(S[i]);
+            else // S[i]是#
+            {
+                if(!s.empty())
+                    s.pop();
+            }
+        }
+
+        for(int i=0;i<T.size();++i)
+        {
+            if(T[i]!='#')
+                t.push(T[i]);
+            else // T[i]是#
+            {
+                if(!t.empty())
+                    t.pop();
+            }
+        }
+
+        while(!s.empty()&&!t.empty()) // 判断s和t栈中的元素是否都相等
+        {
+            if(s.top()==t.top())
+            {
+                s.pop();
+                t.pop();
+            }
+            else return false;
+        }
+        if(!s.empty()||!t.empty())
+            return false;
+        return true;
+    }
+};
