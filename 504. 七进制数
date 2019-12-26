@@ -1,0 +1,37 @@
+
+/*
+
+思路：
+1、题目需要将一个整数转换成7进制，那么先判断该整数是否是负数；
+2、正数和负数其实只是符号位不同而已，数值部分的处理是一样的；
+3、用取余运算得出7进制各个位上的数字，注意需要将整数转换成字符串，而且常规求出的余数的倒序才是正确的7进制数；
+4、如果是负数，最后在结果前加上'-'即可。
+
+*/
+
+class Solution {
+public:
+    string convertToBase7(int num) 
+    {
+        int isNegNum=0;
+        if(num<0)
+        {
+            isNegNum=1;
+            num=num*(-1);
+        }
+
+        string s="";
+        while(num/7)
+        {
+            s=(char)((num%7)+'0')+s;
+            num/=7;
+        }
+        s=(char)(num+'0')+s;
+
+        if(isNegNum==1)
+        {
+            s="-"+s;
+        }
+        return s;
+    }
+};
