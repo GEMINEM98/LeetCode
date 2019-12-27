@@ -1,0 +1,68 @@
+
+/*
+
+思路：
+首先需要理解题意，题中给出的4种计分类型，可以用stack求解：
+1、stack中存放的是每一轮的成绩int；
+2、因为判断字符串是否是整数不好判断，所以先判断其他的情况，将整数放到最后的else语句中；
+3、用stack时，注意入栈和出栈的先后顺序；
+4、最后将stack中的元素加起来就是总成绩。
+
+*/
+
+class Solution {
+public:
+    int calPoints(vector<string>& ops) 
+    {
+        stack<int> st;
+        for(int i=0;i<ops.size();++i)
+        {
+            if(ops[i]=="+") //需要记录前两轮的成绩，注意入栈的顺序
+            {
+                int flag=st.top();
+                st.pop();
+                int flag2=st.top();
+                st.push(flag);
+                st.push(flag+flag2);
+            }
+            else if(ops[i]=="D")
+            {
+                st.push(st.top()*2);
+            }
+            else if(ops[i]=="C")
+            {
+                st.pop();
+            }
+            else
+            {
+                st.push(stoi(ops[i])); // 直接将字符串转换成整数
+
+                // int tmp=0;
+                // int k=0;
+                // int flag=0;
+                // if(ops[i][0]=='-')
+                // {
+                //     flag=1;
+                //     ops[i].erase(0,1);
+                // }
+                // for(int j=ops[i].size()-1;j>=0;--j)
+                // {
+                //     tmp+=((ops[i][j]-'0')*pow(10,k));
+                //     ++k;
+                // }   
+                // if(flag==1)
+                //     tmp*=-1;
+                // st.push(tmp);
+                
+            }
+        }
+
+        int sum=0;
+        while(!st.empty())  // 将stack中的成绩加起来计算总和
+        {
+            sum+=st.top();
+            st.pop();
+        }
+        return sum;
+    }
+};
