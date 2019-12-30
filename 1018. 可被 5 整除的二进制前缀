@@ -1,0 +1,32 @@
+
+/*
+
+思路：
+返回的vector存的是数组A前1位、前2位、前三位... 组合成的整数能否被5整除，所以遍历一次数组A进行累加；
+由题意可知，数组A的长度会超过32位，所以如果直接将各个位上的数字组合成整数，会溢出；
+所以，判断是否能被5整除，就看个位是否为0/5即可；
+每次判断只需要取出这个整数的个位数字判断就行了。
+
+*/
+
+class Solution {
+public:
+    vector<bool> prefixesDivBy5(vector<int>& A) 
+    {
+        int flag=0;
+        int sz=A.size();
+        vector<bool> answer(sz,false);
+
+        for(int i=0;i<sz;++i)
+        {
+            flag=flag*2+A[i];  // 题中给的是数组A，数组A组成的位数可能会超过32位，可能会溢出
+            flag=flag%10;      // 判断flag是否是5的整数倍，只需看flag的个位数是否是0/5，所以我们只需保留flag的个位数字即可。
+
+            if(flag%5==0) 
+                answer[i]=true;
+            else 
+                answer[i]=false;
+        }
+        return answer;
+    }
+};
