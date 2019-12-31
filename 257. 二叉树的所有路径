@@ -1,0 +1,51 @@
+
+
+/*
+思路：
+需要找出所有的路径，那么左子树和右子树都要遍历，用递归方法求解：
+一个string存的是一条路径，vector<string>存的是所有路径；
+先将根结点存入string，接着递归遍历左子树，递归遍历右子树；返回上一层的条件是：该结点是叶子结点，并将string存入vector；
+
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+class Solution {
+public:
+    void _binaryTreePaths(TreeNode* root,string s,vector<string>& v)
+    {
+        TreeNode* cur=root;
+        s+=to_string(cur->val);  // 根结点存入字符串
+
+        if(cur->left==nullptr&&cur->right==nullptr)  // 走到叶子结点，就将字符串存入vector中
+        {
+            v.push_back(s);
+            return;    // 返回上一层
+        }
+
+        s+="->";
+        if(cur->left)
+            _binaryTreePaths(cur->left,s,v);  // 遍历左子树
+        if(cur->right)
+            _binaryTreePaths(cur->right,s,v); // 遍历右子树
+    }
+
+    vector<string> binaryTreePaths(TreeNode* root) 
+    {
+        string s="";
+        vector<string> v;
+        if(root==nullptr)
+            return v;
+
+        _binaryTreePaths(root,s,v);
+        return v;
+    }
+};
