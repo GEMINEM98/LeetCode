@@ -1,0 +1,42 @@
+
+/*
+思路：
+根据题意，需要算出每个结点的坡度，求出左子树的结点之和、右子树结点之和，作差的绝对值；
+用递归的方法做：
+每个结点需要记录两个值，一个是它自身的坡度，还有一个是它的所有结点之和，以便下一次递归。
+返回条件是叶子结点。
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    int _findTilt(TreeNode* root, int& count)
+    {
+        if(root==NULL)
+            return 0;
+        int n1=_findTilt(root->left, count);
+        int n2=_findTilt(root->right, count);
+        
+        count+=abs(n1-n2);  // 算出每个结点子树的坡度
+        return n1+n2+root->val; // 返回这个结点子树所有结点之和
+    }
+
+    int findTilt(TreeNode* root) 
+    {
+        if(root==NULL)
+            return 0;
+
+        int count=0;
+        _findTilt(root,count);
+        return count;
+    }
+};
