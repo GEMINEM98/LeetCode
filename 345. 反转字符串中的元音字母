@@ -1,0 +1,39 @@
+
+/*
+思路：
+先定义一个标记字符串，用来匹配元音字母，题中没有限制字符大小写，所以大小写都应该考虑到。
+前后指针遍历给定字符串，找到位置对称的两个元音字母就交换，注意处理边界问题。
+找不到就直接返回原字符串。
+*/
+
+class Solution {
+public:
+
+    void Swap(char* a,char* b)
+    {
+        char tmp=*a;
+        *a=*b;
+        *b=tmp;
+    }
+    string reverseVowels(string s) 
+    {
+        int prev=0;
+        int cur=s.size()-1;
+        string flag="AEIOUaeiou";    // 大小写都要注意到
+
+        while(prev<cur)
+        {
+            while(prev<s.size()&&flag.find(s[prev])==-1)
+                ++prev;
+            while(cur<s.size()&&flag.find(s[cur])==-1)
+                --cur;
+            if(prev<cur&&cur<s.size())
+            {
+                Swap(&s[prev],&s[cur]);
+                ++prev;
+                --cur;
+            }
+        }
+        return s;
+    }
+};
