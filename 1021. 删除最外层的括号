@@ -1,0 +1,35 @@
+
+
+/*
+思路：
+用计数法，在遍历字符串S的时候，标记左右括号出现的次数；
+当左括号数量==右括号数量时，表示一个完整的原语，此时删除存到返回值string中的左括号；
+依次遍历完毕。
+*/
+
+class Solution {
+public:
+    string removeOuterParentheses(string S) 
+    {
+        int left=0;
+        int right=0;
+        int flag=0;  // 标记需要删除的外层左括号
+        string s="";
+
+        for(char c:S) // 迭代器遍历，调用erase删除外层左括号
+        {
+            if(c=='(')
+                ++left;
+            if(c==')')
+                ++right;
+            if(left==right)
+            {
+                s.erase(s.begin()+flag);  // 删除最外层的左括号
+                flag=s.size();
+            }
+            else
+                s.push_back(c);
+        }
+        return s;
+    }
+};
