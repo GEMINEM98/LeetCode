@@ -1,0 +1,33 @@
+
+
+/*
+思路：
+用两个数组记录各行和各列的增加1的次数；
+然后将对应行和列的次数相加，判断是否是奇数。
+*/
+
+class Solution {
+public:
+    int oddCells(int n, int m, vector<vector<int>>& indices) 
+    {
+        int row[n]={0}; // 记录每一行增加1的次数
+        int col[m]={0}; // 记录每一列增加1的次数
+        int count=0;
+
+        for(auto e:indices)
+        {
+            row[e[0]]++;
+            col[e[1]]++;
+        }
+        
+        for(int i=0;i<n;++i)
+        {
+            for(int j=0;j<m;++j)
+            {
+                if((row[i]+col[j])%2==1)
+                    ++count;
+            }
+        }
+        return count;
+    }
+};
