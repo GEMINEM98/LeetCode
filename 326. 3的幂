@@ -1,0 +1,35 @@
+
+/*
+思路：
+如果n是3的幂次方，那么它就可以被3一直整除下去，直到最后值是1为止；
+*/
+
+/*
+class Solution {
+public:
+    bool isPowerOfThree(int n) 
+    {
+        if(n==0)
+            return false;
+
+        while(n%3==0)
+        {    
+            n/=3;
+        }
+        return n==1;
+    }
+};
+*/
+
+
+// 不用循环或递归：
+class Solution {
+public:
+    bool isPowerOfThree(int n) 
+    {
+        // 最大能表示：3^19==1162261467 
+        // 3的幂次方能被1162261467整除。
+        return (n>0) && (1162261467%n == 0);
+    }
+};
+
