@@ -1,0 +1,72 @@
+
+
+/*
+思路：
+先统计出一共有多少个0；
+遍历的时候，数组的长度是限制条件，并且更新数组后还存在的元素，其向右挪动的位数取决于它前面有几个0；
+超出数组长度的元素直接舍弃。
+*/
+
+class Solution {
+public:
+    void duplicateZeros(vector<int>& arr) 
+    {
+        int count=0;
+        for(auto n:arr)
+        {
+            if(n==0)
+                ++count;  // 统计出一共几个0
+        }
+
+        int j=arr.size()-1;  // 从右向左更新原数组的下标
+        for(int i=arr.size()-1;i>=0;--i)
+        {
+            if(arr[i]==0) // count记录arr[i]前面还有几个0，相当于arr[i]向右移动的位数
+                --count;
+
+            if(i+count==arr.size()-1) // 如果这个数是更新数组的最后一个数，那么不管它是不是0，直接放进去
+            {
+                arr[j]=arr[i];
+                --j;
+            }
+            else if(i+count<arr.size()-1) // 如果这个数是中间数，那么如果是0更新两个元素；不是0更新1个元素
+            {
+                arr[j]=arr[i];
+                if(arr[i]==0)
+                {
+                    arr[--j]=arr[i];
+                }
+                --j;
+            }
+        }
+        return;
+    }
+};
+
+
+/*
+思路：
+遍历找到0，将这个0后面的数都向后挪动一位；
+注意是从后向前挪，避免覆盖。
+*/
+/*
+class Solution {
+public:
+    void duplicateZeros(vector<int>& arr) 
+    {
+        for(int i=0;i<arr.size();++i)
+        {
+            if(arr[i]==0)
+            {
+                for(int j=arr.size()-1;j>i;--j)
+                {
+                    arr[j]=arr[j-1];
+                }
+                ++i;
+            }
+        }
+    }
+};
+*/
+
+
