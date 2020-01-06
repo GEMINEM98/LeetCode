@@ -1,0 +1,40 @@
+
+/*
+其他做法：
+因为如果n是2的幂次方，那么n的二进制位某一位是1，n-1的二进制是n的1右边所有位都是1，两个只是相差1；
+所以，n&(n-1)==0 就是true；否则是false。
+*/
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        return ((n>0) && ((n&(n-1))==0));
+    }
+};
+
+
+
+/*
+思路：
+如果n是负数，则返回false；
+当n>1时，循环将n/2，如果中间n是奇数，则直接返回false；
+当n==1时，返回true.
+*/
+/*
+class Solution {
+public:
+    bool isPowerOfTwo(int n) 
+    {
+        if(n<=0)
+            return false;
+
+        while(n%2==0)
+            n>>=1;
+
+        if(n==1)
+            return true;    
+        else return false;     
+    }
+};
+*/
