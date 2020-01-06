@@ -1,0 +1,81 @@
+
+
+/*
+按位异或：相同字符异或结果是0，全部异或，剩下一个是返回值
+*/
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) 
+    {
+        int sum=0;
+        for(char ct:t)
+        {
+            sum^=ct;
+        }
+        for(char cs:s)
+        {
+            sum^=cs;
+        }
+        return sum;
+    }
+};
+
+
+// 评论中的简单做法：
+
+/*
+class Solution {
+public:
+    char findTheDifference(string s, string t) 
+    {
+        int sum=0;
+
+        for(char ct:t)
+        {
+            sum+=ct;
+        }
+        for(char cs:s)
+        {
+            sum-=cs;
+        }
+        return sum;
+    }
+};
+*/
+
+
+/*
+思路：无序哈希表
+用unordered_map记录两个字符串中所有字符出现的次数之差；
+因为 string t 比 string s 多了一个字符，所以次数是1的字符就是返回值。
+*/
+
+/*
+class Solution {
+public:
+    char findTheDifference(string s, string t) 
+    {
+        unordered_map<char,int> um;
+        char c;
+
+        for(char ct:t)
+        {
+            um[ct]++;
+        }
+        for(char cs:s)
+        {
+            um[cs]--;
+        }
+        
+        for(auto it=um.begin();it!=um.end();++it)
+        {
+            if(it->second==1)
+            {
+                c=it->first;
+            }
+        }
+        return c;
+    }
+};
+*/
