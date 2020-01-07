@@ -1,0 +1,54 @@
+
+/*
+思路：
+根据题意：N是非负整数，所以分为N==0和N!=0的情况
+定义res接收结果；定义一个flag=1，用flag和N的每一位都相与：
+如果相与结果是0，则表示N中的该位取反后是1，则需要加到res中；
+否则继续遍历，相当于给res+0；
+将flag向左移动一位，逐位遍历，直到遍历的位超过N的有效位为止。
+*/
+/*
+class Solution {
+public:
+    int bitwiseComplement(int N) 
+    {
+        int res=0;
+        int flag=1;
+        if(N==0)
+            res=1;
+        
+        while(flag<=N)
+        {
+            res+=((N&flag)==0)?flag:0;
+            flag<<=1;
+        }
+        return res;
+    }
+};
+*/
+
+// 评论中的巧妙解法：
+/*
+思路：
+因为需要将N的有效位取反，所以直接遍历到N的有效位最高位的高一位，用flag记录；
+用flag-1，就是N的有效位全1，再减去N，就是结果。
+例如：  二进制： N==1011   flag==10000
+                flag-1 == 1111
+                1111 - 1011 == 0100
+*/
+
+class Solution {
+public:
+    int bitwiseComplement(int N) 
+    {
+        int flag=1;
+        if(N==0)
+            return 1;
+
+        while(flag<=N)
+        {
+            flag<<=1;
+        }
+        return flag-1-N;
+    }
+};
