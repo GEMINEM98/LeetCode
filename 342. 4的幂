@@ -1,0 +1,45 @@
+
+/*
+思路：
+循环判断num能不能被4整除，如果可以，将它除以4，继续判断它的商；
+如果结果是1，表示num是4的幂次方，否则返回false。
+*/
+/*
+class Solution {
+public:
+    bool isPowerOfFour(int num) 
+    {
+        if(num<=0)
+            return false;
+
+        while(num%4==0)
+        {
+            num/=4;
+        }
+        return num==1;
+    }
+};
+*/
+
+
+// 评论的巧妙解法：
+
+/*
+思路：
+既然是4的幂次方，那么一定就是2的幂次方；
+在符合2的幂次方情况下，判断是2还是4还是8；
+需要摘出4，那么可以用num%3==1
+一个数的N次方-1，总能除尽比这个数小1的数。
+*/
+
+class Solution {
+public:
+    bool isPowerOfFour(int num) 
+    {
+        
+        if(num<=0 || num&(num-1))
+            return false;
+
+        return num%3==1;
+    }
+};
