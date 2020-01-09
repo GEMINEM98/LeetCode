@@ -1,0 +1,44 @@
+
+/*
+思路：
+用unordered_map存放nums的对应元素，first是nums中的元素，second是nums对应元素的个数；
+当元素出现的个数>1时，表示有重复元素。相当于计数。
+*/
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) 
+    {
+        unordered_map<int,int> um;
+        auto it=nums.begin();
+        while(it!=nums.end())
+        {
+            um[*it]++;
+            if(um[*it]>1)
+                return true;
+            ++it;
+        }
+        return false;
+    }
+};
+
+
+
+/*
+思路：
+将nums中的元素都排序，然后寻找是否有相邻两个元素完全相等。
+*/
+/*
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) 
+    {
+        set<int> s;
+        for(auto e:nums)
+        {
+            s.insert(e);
+        }
+        return s.size()!=nums.size();
+    }
+};
+*/
