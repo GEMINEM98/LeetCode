@@ -1,0 +1,37 @@
+
+/*
+思路：
+首先，将secret中的元素和对应的个数都用unordered_map um存起来；遍历的时候，用countA标记公牛的数量；
+然后，遍历guess中的元素，与um中的元素个数进行匹配，每遍历一个元素就将um中对应元素的个数减1，用countAB标记母牛和公牛的数量；
+最后将所有信息都连接起来，返回string。
+*/
+
+class Solution {
+public:
+    string getHint(string secret, string guess) 
+    {
+        string s="";
+        int countA=0;   // 计算公牛数量
+        int countB=0;   // 计算母牛数量
+        int countAB=0;  // 计算公牛+母牛数量 
+        unordered_map<int,int> um;  // 存的是secret中所有的元素
+
+        for(int i=0;i<secret.size();++i)
+        {
+            if(secret[i]==guess[i])
+                ++countA;           // 公牛数量
+            um[secret[i]]++;
+        }
+        for(int i=0;i<guess.size();++i)
+        {
+            if(um[guess[i]]>0)  // 数字猜对了，位置不一定；A+B
+                ++countAB;      // 公牛+母牛
+            um[guess[i]]--;
+        }
+        countB=countAB-countA;  // 母牛数量
+
+        s+=(to_string(countA)+"A"+to_string(countB)+"B");
+
+        return s;
+    }
+};
