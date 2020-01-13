@@ -1,0 +1,51 @@
+
+class Solution {
+public:
+
+    int f(string& s)  // 算的是每个字符串中，最小字母出现的次数
+    {
+        sort(s.begin(),s.end());
+        int count=0;
+        for(char e:s)
+        {
+            if(e==s[0])
+                ++count;
+        }
+        return count;
+    }
+
+    /*
+    思路：
+    需要找出queries和words中，每一个字符串元素中的最小元素的出现次数；
+    分别定义两个vector<int> q,w，用来存每个元素的最小字符个数；
+    比较q和w中的次数，当q的次数<=w的次数时，就将这个次数存入结果数组res中。
+    */
+
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) 
+    {
+        vector<int> q;  // 存的是queries字符串数组中各个字符串最小字母的出现次数
+        vector<int> w;  // 存的是words字符串数组中各个字符串最小字母的出现次数
+        for(int i=0;i<queries.size();++i)
+        {
+            q.push_back(f(queries[i]));
+        }
+        for(int j=0;j<words.size();++j)
+        {
+            w.push_back(f(words[j]));
+        }
+
+        vector<int> res;  // 存放结果
+        int flag=0;
+        for(int i=0;i<q.size();++i)
+        {
+            for(int j=0;j<w.size();++j)
+            {
+                if(q[i]<w[j])
+                    ++flag;     // flag记录w中有几个元素>当前q元素
+            }
+            res.push_back(flag);
+            flag=0;
+        }
+        return res;
+    }
+};
