@@ -1,0 +1,23 @@
+
+
+/*
+思路：
+这道题从数学公式能够求解：y=kx+b，要判断是否是一条直线，就看两点之间的斜率k是否相同；
+k=(y2-y1)/(x2-x1)
+遍历所有的点，判断每两个点之间的斜率k是否相同，只要有一个不相同，就返回false。
+*/
+
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) 
+    {
+        float tmp=(float)(coordinates[1][1]-coordinates[0][1])/(coordinates[1][0]-coordinates[0][0]);
+
+        for(int i=2;i<coordinates.size();++i)
+        {
+            if((float)(coordinates[i][1]-coordinates[i-1][1])/(coordinates[i][0]-coordinates[i-1][0])!=tmp)
+                return false;
+        }
+        return true;
+    }
+};
