@@ -1,0 +1,47 @@
+
+
+/*
+思路：
+注意两点：
+    1.a和b的长度必须相同；
+    2.在a中任意挪动2个元素，能够等于b就是true。(重复+不同处个数)
+
+首先，判断长度是否相等；
+然后，将不同之处放进vector中，没有不同处和2个不同处，这两种情况单独判断，其余都是false
+最后，如果没有不同处，再判断是否存在重复元素；
+      如果2个不同处，再判断交换后是否相等。
+*/
+
+class Solution {
+public:
+    bool buddyStrings(const string& a, const string& b) 
+    {
+        if (a.size() != b.size()) 
+            return false;
+
+        vector<int> v;  // 记录不同处的下标
+        for (int i = 0; i < a.size(); i++)
+        {
+            if (a[i] != b[i]) 
+            {
+                v.push_back(i);
+                if (v.size() > 2)   // 超过3处不同，false
+                    return false;
+            }
+        }
+
+        if (v.size() == 0)  // 没有不同处
+        {
+            set<char> s(a.begin(), a.end()); // 用set对a去重
+            if(s.size() < a.size())   // 判断a中的元素是否存在重复元素 ， 有重复元素，true
+                return true;
+            else return false;
+        } 
+        else if (v.size() == 2) // 刚好有两个不同之处
+        {
+            return (a[v[0]] == b[v[1]] && a[v[1]] == b[v[0]]); // 不用交换，直接判断字符即可
+        }
+
+        return false; // 一处、三处及三处以上不同，false
+    }
+};
