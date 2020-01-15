@@ -1,3 +1,27 @@
+
+/*
+思路：
+从右向左遍历s，遇到!=' '，就计数count++；
+如果再次遇到' '，并且count!=0，那么count就是最后一个单词的长度。
+*/
+class Solution {
+public:
+    int lengthOfLastWord(string s) 
+    {
+        int count=0;
+        for(int i=s.size()-1;i>=0;--i)
+        {
+            if(s[i]!=' ')
+                ++count;
+            else if(count!=0)
+                break;
+        }
+        return count;
+    }
+};
+
+
+
 class Solution {
 public:
     int lengthOfLastWord(string s) {
