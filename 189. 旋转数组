@@ -1,0 +1,34 @@
+/*
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k)   // 每向右挪动一个元素，就将这个元素前插到数组首部。
+    {
+        int sz=nums.size();
+        while(k--)
+        {
+            int tmp=nums[sz-1];
+            nums.pop_back();
+            nums.insert(nums.begin(),tmp);
+        }
+    }
+};
+*/
+
+/*
+思路：翻转3次
+eg:    1 2 3 4 5 6 7
+      (4 3 2 1) 5 6 7
+       4 3 2 1 (7 6 5)
+      (5 6 7 1 2 3 4)
+*/
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k)
+    {
+        k=k%nums.size();  // 防止下面越界
+        reverse(nums.begin(),nums.end()-k);
+        reverse(nums.end()-k,nums.end());
+        reverse(nums.begin(),nums.end());
+    }
+};
