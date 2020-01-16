@@ -1,0 +1,56 @@
+
+/*
+思路：
+直接用一个数组，先存入magazine的字符，再将ransomNote的字符从中减去；
+如果剩下的字符的个数<0，那么返回false；
+完毕返回true。
+*/
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) 
+    {
+        int x[26]={0};
+
+        for(auto& e:magazine)
+            x[e-'a']++;
+        for(auto& e:ransomNote)
+            x[e-'a']--;
+        
+        for(int i=0;i<26;++i)
+        {
+            if(x[i]<0)
+                return false;
+        }
+        return true;
+    }
+};
+
+
+/*
+思路：ransom的字符在magazine中全都存在，且个数相等
+用map把magazine中的字符出现的次数统计出来；
+遍历ransom，将map对应字符的个数-1；
+如果map中没有该字母了，返回false；
+完毕返回true。
+*/
+/*
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) 
+    {
+        map<char,int> m;
+
+        for(auto& e:magazine)
+            m[e]++;
+        
+        for(int i=0;i<ransomNote.size();++i)
+        {
+            if(m[ransomNote[i]]!=0)
+                --m[ransomNote[i]];
+            else return false;
+        }
+        return true;
+    }
+};
+*/
