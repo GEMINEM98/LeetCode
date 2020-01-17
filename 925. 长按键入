@@ -1,0 +1,37 @@
+
+/*
+思路：双指针
+首先，同时遍历name和typed；
+完毕后，再判断多余未遍历部分的情况；
+*/
+
+class Solution {
+public:
+    bool isLongPressedName(string name, string typed) 
+    {
+        int i=0;
+        int j=0;
+        while(i<name.size()&&j<typed.size()) // 同时遍历name和typed
+        {
+            if(name[i]==typed[j])
+            {
+                ++i;
+                ++j;
+            }    
+            else ++j;
+        }
+        
+        if(i<name.size()&&j>=typed.size()) // name没完，typed完了，false
+            return false;
+        if(i>=name.size()&&j<typed.size()) // name完了，typed没完，再判断typed后面是否还有其它!=name最后一个元素的字母
+        {
+            while(j<typed.size())          // 将typed的多余部分全部检查
+            {
+                if(typed[j]!=name[name.size()-1])
+                    return false;
+                ++j;
+            }
+        }
+        return true;
+    }
+};
