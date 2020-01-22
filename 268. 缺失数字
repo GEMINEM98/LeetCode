@@ -1,4 +1,30 @@
 
+/*
+思路：
+异或操作，因为下标和值是对应的，所以确实的值可以用异或运算求出。
+注意：res的初始值，因为如果不存在的话，返回的是数组的长度。
+*/
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) 
+    {
+        int res=nums.size();
+        for(int i=0;i<nums.size();++i)
+        {
+            res^=nums[i];
+            res^=i;
+        }
+        return res;
+    }
+};
+
+
+
+/*
+思路：
+排序之后，对比下标与值。
+*/
+/*
 class Solution {
 public:
     int missingNumber(vector<int>& nums) 
@@ -12,3 +38,4 @@ public:
         return nums.size();
     }
 };
+*/
