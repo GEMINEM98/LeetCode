@@ -1,0 +1,33 @@
+
+/*
+思路：
+数组的整数可以分为：
+    末尾是9(以及全都是9)；
+    数字0；
+    其他数字。
+*/
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) 
+    {
+        for(int i=digits.size()-1;i>=0;--i)
+        {
+            if(digits[i]==9)
+            {
+                digits=0;
+            }
+            else
+            {
+                digits[i]++;
+                break;
+            }
+        }
+        if(digits[0]==0)
+        {
+            digits.push_back(0);
+            digits[0] = 1;
+        }
+        return digits;
+    }
+};
+
