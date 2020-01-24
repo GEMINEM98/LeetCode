@@ -1,0 +1,26 @@
+
+/*
+思路：
+用间距n控制两个下标 i 和 j ；
+直接判断整数字符串中是否含0。
+*/
+class Solution {
+public:
+    vector<int> getNoZeroIntegers(int n) 
+    {
+        //vector<int> v;
+        for(int i=1;i<n;++i)  // 不含0的整数，从1开始遍历
+        {
+            int j=n-i;
+            if((to_string(i)+to_string(j)).find('0')==-1)
+            {
+                /*v.push_back(i);
+                v.push_back(j);
+                break;*/
+                return {i,j};   // 可以这样输出
+            }
+        }
+        //return v;
+        return {};
+    }
+};
