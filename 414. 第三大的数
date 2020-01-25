@@ -1,0 +1,81 @@
+
+/* 
+一种简单的解法:
+用a,b,c三个变量循环更新nums中前三个最大的数；
+a存max，b存middle，c存min；
+注意nums中元素的类型大小越界问题。
+*/
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) 
+    {
+        long long a=LLONG_MIN;
+        long long b=LLONG_MIN;
+        long long c=LLONG_MIN;
+
+        for(int i=0;i<nums.size();++i)
+        {
+            if(nums[i]>a)
+            {
+                c=b;
+                b=a;
+                a=nums[i];
+            }
+            if(nums[i]<a)
+            {
+                if(nums[i]>b)
+                {
+                    c=b;
+                    b=nums[i];
+                }
+            }
+            if(nums[i]<b)
+            {
+                c=nums[i]>c?nums[i]:c;
+            }
+        }
+        if(nums.size()<3 || c==LLONG_MIN)
+            return a;
+        else return c;
+    }
+};
+
+
+
+/*
+思路：
+用set将nums中的元素存起来，set能够自动排序和去重；
+遍历set<int> s，取出倒数第三个，没有的话，直接返回最后一个。
+*/
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) 
+    {
+        set<int> s;
+        for(int e:nums)
+        {
+            s.insert(e);
+        }
+        auto it=s.rbegin();
+
+        
+        int count=0;
+        while(it!=s.rend())
+        {
+            ++count;
+            if(count==3)
+                return *it;
+            ++it;
+        }
+        return *s.rbegin();
+        
+
+        if(s.size()<3)
+            return *it;
+        else
+        {
+            return *(++(++it));
+        }
+    }
+};
