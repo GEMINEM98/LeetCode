@@ -1,0 +1,32 @@
+
+
+/*
+思路：
+用一个函数判断该数是否是素数。
+*/
+class Solution {
+public:
+    bool func(int n)
+    {
+        int i=2;
+        while(i*i<=n)  //只需遍历n的前一半即可
+        {
+            if(n%i==0)
+                return false;
+            ++i;
+        }
+        return true;
+    }
+    int countPrimes(int n) 
+    {
+        int count=0;
+        int num=2;
+        while(num<n)
+        {
+            if(func(num))
+                ++count;
+            ++num;
+        }
+        return count;
+    }
+};
