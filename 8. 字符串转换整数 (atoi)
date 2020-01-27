@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int myAtoi(string str) 
+    {
+        string s="";
+
+        int j=0;
+        while(str[j]==' ')   // 去掉空格
+            ++j;
+
+        int flag=1; // 记录符号位
+        if(str[j]=='-')
+        {
+            flag=-1;
+            ++j;
+        }
+        else if(str[j]=='+')
+        {
+            ++j;
+        }
+/*
+        int res=0;
+        int tmp=INT_MAX/10; // 防止溢出
+        int i=j;
+        while(str[i]>='0'&&str[i]<='9')   // INT_MAX=2147483647 	INT_MIN=-2147483648   
+        {
+            // 当res<tmp时，res*10+当前数字不会溢出；
+            // 当res==tmp时，res*10+当前数字，如果当前数字<8不会溢出，因为INT_MAX的各位数是8；
+            //                              如果当前数字>8会溢出;
+
+            if( res<tmp || (res==tmp && (str[i]-'0'<8)))
+            {
+                res=res*10+(str[i]-'0');
+                ++i;
+            }
+            
+            else return (flag==1 ? INT_MAX : INT_MIN);
+        }
+        return flag*res;
+*/
+        long long res=0;
+        int i=j;
+        while(str[i]>='0'&&str[i]<='9')   // INT_MAX=2147483647 	INT_MIN=-2147483648   
+        {
+            res=res*10+(str[i]-'0');
+            if(res*flag>2147483647)
+                return INT_MAX;
+            if(res*flag<-2147483648)
+                return INT_MIN;
+            ++i;
+        }
+        return res*flag;
+    }
+};
