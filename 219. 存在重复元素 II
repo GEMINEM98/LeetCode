@@ -1,0 +1,27 @@
+
+
+/*
+思路：
+用unordered_map存数组的对应下标；
+先判断该数是否存在，并且判断下标是否符合要求；
+否则将数据存入。
+*/
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) 
+    {
+        unordered_map<int,int> um;  // 存的是下标
+        for(int i=0;i<nums.size();++i)
+        {
+            auto it=um.find(nums[i]);
+            if(it!=um.end())  // um中存在该数
+            {
+                if(i-it->second<=k)
+                    return true;
+                else it->second=i;
+            }
+            else um[nums[i]]=i;
+        }
+        return false;
+    }
+};
