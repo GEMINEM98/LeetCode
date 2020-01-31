@@ -1,0 +1,40 @@
+
+
+/*
+思路：
+二叉搜索树的一个结点的左孩子小于根结点，右孩子大于根结点；
+所以，从右向左遍历，累加大的数，再加上自己本身，更新该数。
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    void _convertBST(TreeNode* root, int* num)
+    {
+        if(root==NULL)
+            return;
+
+        _convertBST(root->right,num);  // 先遍历右子树
+
+        (*num)+=root->val;  // 再遍历当前结点
+        root->val=(*num);
+        
+        _convertBST(root->left,num);  // 最后遍历左子树
+    }
+
+    TreeNode* convertBST(TreeNode* root) 
+    {
+        int num=0;
+        _convertBST(root,&num);
+        return root;
+    }
+};
