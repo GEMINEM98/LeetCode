@@ -1,0 +1,50 @@
+
+
+class Solution {
+public:
+    string dayOfTheWeek(int day, int month, int year) 
+    {
+        int d=0;
+        int y=1971;
+        int MonthNum[13]={0,31,28,31,30,31,30,31,31,30,31,30,31}; // 具体月份的天数
+
+        for(int i=y;i<year;++i)
+        {
+            if(((i%4==0)&&(i%100!=0))||(i%400==0))  // 将整年的天数相加
+                d+=366;
+            else d+=365;
+        }
+
+        if(((year%4==0)&&(year%100!=0))||(year%400==0))  // 调整该年的2月天数
+            MonthNum[2]=29;
+
+        for(int j=1;j<month;++j)
+        {
+            d+=MonthNum[j];     // 将该年过去月份的天数相加
+        }
+
+        d+=day;    // 加上该月过去的天数
+
+        d=(d+4)%7;  // 为什么要+4？ 因为1971年1月1日是星期5。
+        switch(d)
+        {
+            case 0:
+                return "Sunday";
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            default:
+                break;
+        }
+        return "";
+    }
+};
