@@ -1,0 +1,20 @@
+/*
+思路：
+因为是任意数组，所以可以将(0,n-1)的数字填进去，后面空一个直接取反；
+这样和就是0。
+*/
+class Solution {
+public:
+    vector<int> sumZero(int n) 
+    {
+        vector<int> v;
+        int sum = 0;
+        for (int i = 0; i < n - 1; ++i) 
+        {
+            v.push_back(i);
+            sum += i;
+        }
+        v.push_back(-sum);
+        return v;
+    }
+};
