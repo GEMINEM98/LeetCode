@@ -1,0 +1,20 @@
+
+/*
+思路：
+用unordered_set将两个数组去重，遍历其中一个数组，找到其中共有的元素进行存储。
+*/
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) 
+    {
+        vector<int> v;
+        unordered_set<int> us1(nums1.begin(),nums1.end()); 
+        unordered_set<int> us2(nums2.begin(),nums2.end());
+        for(auto e:us1)
+        {
+            if(find(us2.begin(),us2.end(),e)!=us2.end())
+                v.push_back(e);
+        }
+        return v;
+    }
+};
