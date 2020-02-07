@@ -1,0 +1,71 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ 
+/*
+思路：
+递归遍历，先遍历右子结点，再遍历左子节点。
+用level变量和v.size()的比较，判断是否该存入第几层的最右节点。
+*/
+class Solution {                                     // 递归
+public:
+    void _rightSideView(vector<int>& v,TreeNode* root,int level)
+    {
+        if(root==nullptr)
+            return;
+        if(level==v.size())    // 当v中元素个数==level，表示将该元素存入v，该元素就是该层的最右元素
+            v.push_back(root->val);
+        ++level;
+        _rightSideView(v,root->right,level);   // 因为从右边看，先判断右子节点
+        _rightSideView(v,root->left,level);
+    }
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        vector<int> v;    // 存结果
+        _rightSideView(v,root,0);
+        return v;
+    }
+};
+
+
+
+/*
+思路：
+层序遍历，用队列q进行存入存出操作，按照层次遍历二叉树；
+q中，当一层遍历完后，q.back()就是最右节点，并将其存入v。
+*/
+class Solution {                                       // 非递归
+public:
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        vector<int> v;   // 存结果
+        queue<TreeNode*> q;  // 层序遍历二叉树
+
+        if(!root) return v;
+        q.push(root);
+        while(!q.empty())
+        {
+            v.push_back(q.back()->val);   // 将队列的最后一个元素存起来
+            int sz=q.size();              // 保存当前队列的大小
+
+            for(int i=0;i<sz;++i)         // 一个循环就是遍历了一层
+            {
+                TreeNode* tmp=q.front();
+                q.pop();
+                if(tmp->left!=nullptr)
+                    q.push(tmp->left);
+                if(tmp->right!=nullptr)
+                    q.push(tmp->right);
+
+            }
+        }
+        return v;
+    }
+};
+
