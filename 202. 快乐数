@@ -1,0 +1,24 @@
+
+/*
+思路：
+题目需要循环遍历，所以用递归的方法判断。
+*/
+class Solution {
+public:
+    bool isHappy(int n) 
+    {
+        if(n==1)
+            return true;
+        if(n>1&&n<5)
+            return false;
+
+        int sum=0;
+        while(n)
+        {
+            int tmp=n%10;
+            sum+=tmp*tmp;
+            n/=10;
+        }
+        return isHappy(sum);
+    }
+};
