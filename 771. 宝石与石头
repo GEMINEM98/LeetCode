@@ -1,0 +1,23 @@
+
+/*
+思路：
+直接将宝石的类型数组J的每种字符都用unordered_map存起来，并且将val置为1；
+遍历石头数组S，将存在的宝石字符的val相加；若不是宝石类型，unordered_map置0处理；
+计算出S中所有元素的计数和。
+*/
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) 
+    {
+        unordered_map<char,int> um;
+        int sum=0;
+
+        for(char& e:J)
+            um[e]=1;
+        
+        for(char& e:S)
+            sum+=um[e];
+        
+        return sum;
+    }
+};
