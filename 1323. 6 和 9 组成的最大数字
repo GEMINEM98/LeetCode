@@ -1,0 +1,32 @@
+
+// 把遇到的第一个6变成9
+class Solution {
+public:
+    int maximum69Number (int num) {
+        int res=0;
+        vector<int> v;
+        while(num)
+        {
+            int tmp=num%10;
+            v.push_back(tmp);
+            num/=10;
+        }
+
+        for(int i=v.size()-1;i>=0;--i)
+        {
+            if(v[i]!=9)
+            {
+                v[i]=9;
+                break;
+            }   
+        }
+
+        int i=0;
+        for(auto e:v)
+        {
+            res=res+e*pow(10,i);
+            ++i;
+        }
+        return res;
+    }
+};
