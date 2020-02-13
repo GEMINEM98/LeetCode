@@ -1,0 +1,16 @@
+
+/*
+思路：
+将数组存入set中去重，set的长度时糖果的种类数；
+将种类数和数组的一半大小作比较，返回给妹妹的最大种类数。
+*/
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        set<int> s;
+        s.insert(candies.begin(),candies.end());
+        if((candies.size()>>1)>s.size())
+            return s.size();
+        else return (candies.size()>>1);
+    }
+};
