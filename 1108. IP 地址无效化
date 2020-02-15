@@ -1,0 +1,32 @@
+
+// 调用string的replace替换函数，第一个参数是下标，第二个参数是匹配几个字符，第三个参数是替换的字符串。
+// 注意：要从后向前替换，因为如果正向替换，"[.]"中的'.'会死循环。
+class Solution {
+public:
+    string defangIPaddr(string address) {
+        const char* tmp="[.]";
+        for(int i=address.size()-1;i>=0;--i)
+        {
+            if(address[i]=='.')
+                address.replace(i,1,tmp);
+        }
+        return address;
+    }
+};
+
+/*
+class Solution {
+public:
+    string defangIPaddr(string address) {
+        const char* tmp="[.]";
+        string s="";
+        for(int i=0;i<address.size();++i)
+        {
+            if(address[i]=='.')
+                s+=tmp;
+            else s+=address[i];
+        }
+        return s;
+    }
+};
+*/
