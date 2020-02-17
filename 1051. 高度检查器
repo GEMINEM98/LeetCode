@@ -1,0 +1,17 @@
+
+// 对比排序前和排序后位置变化元素的个数
+class Solution {
+public:
+    int heightChecker(vector<int>& heights) 
+    {
+        int count=0;
+        vector<int> v=heights;
+        sort(v.begin(),v.end());
+        for(int i=0;i<v.size();++i)
+        {
+            if(v[i]!=heights[i])
+                ++count;
+        }
+        return count;
+    }
+};
