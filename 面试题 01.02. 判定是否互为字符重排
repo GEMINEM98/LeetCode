@@ -1,0 +1,48 @@
+
+
+// 异或，比较结果：
+class Solution {
+public:
+    bool CheckPermutation(string s1, string s2) {
+        int p=0;
+        int q=0;
+        for(auto& e:s1)
+            p^=e;
+        for(auto& e:s2)
+            q^=e;
+        return p==q;
+    }
+};
+
+
+// 用sort()排序后直接比较：
+// class Solution {
+// public:
+//     bool CheckPermutation(string s1, string s2) {
+//         sort(s1.begin(),s1.end());
+//         sort(s2.begin(),s2.end());
+//         return s1==s2;
+//     }
+// };
+
+
+// 用map存入s1，遍历s2，将s2中出现的字符在s1的map中次数--，直到减为0。
+// class Solution {
+// public:
+//     bool CheckPermutation(string s1, string s2) {
+//         if(s1.size()!=s2.size())
+//             return false;
+//         map<char,int> ms1;
+//         for(auto& e:s1)
+//         {
+//             ms1[e]++;
+//         }
+//         for(auto& e:s2)
+//         {
+//             if(ms1[e]!=0)
+//                 ms1[e]--;
+//             else return false;
+//         }
+//         return true;
+//     }
+// };
