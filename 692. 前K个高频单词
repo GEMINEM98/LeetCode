@@ -1,0 +1,74 @@
+
+/* 
+思路：map(去重+first排序)  +  仿函数
+    将words的单词用map保存，map去重+排序，按照字符串大小排序；
+    在map的基础上，
+    将map用vector保存起来，方便调用算法sort()函数；
+    用算法的sort()函数排序，传递第三个参数仿函数：
+        当次数相等时，按照字符串ASCII码升序排序 p1.first < p2.first；
+        当次数不相等时，按照次数降序排序 p1.second > p2.second。
+    此时，vector中前K个就是高频单词。
+*/
+class Solution {
+public:
+    struct CountCompare{
+        bool operator()(const pair<string,int>& p1,const pair<string,int>& p2){
+            if(p1.second==p2.second)            //当次数相等时，按照字符串ASCII码升序排序。
+                return p1.first < p2.first;    
+            else return p1.second > p2.second;  //当次数不相等时，按照次数降序排序。
+        }
+    };
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        vector<string> vv;
+        map<string,int> m;
+        for(auto& e:words)
+            m[e]++;    // 排序+去重，m按照string升序排序，并计数
+
+        vector<pair<string,int>>  v;  // 用来存储map，方便调用sort()，因为sort()只适用于随机迭代器。
+        for(auto& e:m) 
+            v.push_back(e);
+
+        sort(v.begin(),v.end(),CountCompare());  // sort()传递第三个参数比较
+        for(int i=0;i<k;++i)
+        {
+            vv.push_back(v[i].first);
+        }
+        return vv;
+    }
+};
+
+
+
+/* 
+思路：map(去重+first排序)  +  multimap(second的greater<int>排序)
+    将words的单词用map保存，map去重+排序，按照字符串大小排序；
+    在map的基础上，
+    将map用multimap保存，multimap设置成按照次数的greater<int>降序排序；
+    multimap的前K个就是前K个高频单词，用vector保存并输出。
+*/
+// class Solution {
+// public:
+
+//     vector<string> topKFrequent(vector<string>& words, int k) {
+//         vector<string> vv;
+//         map<string,int> m;
+//         for(auto& e:words){
+//             m[e]++;          // 排序+去重，m按照string升序排序，并计数
+//         }
+
+//         multimap<int,string,greater<int>> mm;  // 在m的基础上排序，mm按照second的greater降序排序（less是升序）
+//         for(auto& e:m){
+//             mm.insert(make_pair(e.second,e.first));
+//         }
+
+//         int count=0;          // 保存前K个高频单词
+//         for(auto& e:mm){    
+//             if(count<k){
+//                 vv.push_back(e.second);
+//                 ++count;
+//             }
+//             else break;    
+//         }
+//         return vv;
+//     }
+// };
