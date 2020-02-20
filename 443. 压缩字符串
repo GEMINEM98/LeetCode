@@ -1,0 +1,29 @@
+
+/*
+思路：
+用两个指针分别记录上一个字符和下一个字符，
+当遍历到下一个字符的时候，就将上一个字符更新到原数组，
+并且根据下标算出字符的个数，转化成字符串更新原数组
+*/
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+
+        int cur=0; //记录更新结点的下标
+        int j=0; //记录比较的字符
+        int i=0; //往后找字符，遍历整个数组
+        while(i<chars.size())  
+        {
+            while(i<chars.size()&&chars[i]==chars[j])  //循环完一种字符
+                ++i;
+            chars[cur++]=chars[j];  //将遍历完的字符存到cur的位置
+            if(i-j>1)
+            {
+                for(auto& e:(to_string(i-j)))  //将字符的个数数字存到数组中
+                    chars[cur++]=e;
+            }
+            j=i;  //更新下一个字符结点
+        }
+        return cur;
+    }
+};
