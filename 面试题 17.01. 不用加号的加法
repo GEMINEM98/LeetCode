@@ -1,0 +1,27 @@
+
+/*
+// 用异或计算加法：
+class Solution {
+public:
+    int add(int a, int b) {
+        int ret=b;  // 记录结果，初值是b，因为如果a==0，ret应该返回b的值。
+        while(a)
+        {
+            ret=a^b;    // 计算当前没有进位的加法
+            a=(unsigned int)(a&b)<<1; // 从右向左存储进位，每一位的进位要加到前一位上
+            b=ret;
+        }
+        return ret;
+    }
+};
+*/
+
+class Solution {
+public:
+    int add(int a, int b) {
+        if(0==b) return a;  // 这里把b当做进位，如果进位为0，就不再需要加进位了，直接返回和。
+        int sum=a^b;  // 记录和
+        int bb=(unsigned int)(a&b)<<1;  // 记录进位
+        return add(sum,bb);
+    }
+};
