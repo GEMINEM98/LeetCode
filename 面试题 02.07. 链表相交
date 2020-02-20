@@ -1,0 +1,103 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+ /*
+ 相当于合并链表 并比较：
+ 例如：4123 和 68923
+ 比较：pa->412368923 和 pb->689234123
+ 这两个链表的最后23是公共结点。
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *pa=headA;         
+        ListNode *pb=headB;
+        while(pa!=pb)
+        {
+            if(pa)
+                pa=pa->next;
+            else
+                pa=headB;
+
+            if(pb)
+                pb=pb->next;
+            else
+                pb=headA;
+        }
+        return pa;
+    }
+};
+
+ // 双循环遍历
+ /*
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        while(headA){
+            ListNode* tmp=headB;
+            while(tmp){
+                if(headA==tmp) 
+                    return headA;
+                else
+                    tmp=tmp->next;
+            }
+            headA=headA->next;
+        }
+        return nullptr;
+    }
+};
+*/
+
+// 求出两个链表的长度，然后让指向长链表的指针先走长度之差的长度；
+// 此时，再同时遍历两个链表，如果结点相同直接返回。
+/*
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) 
+    {
+        if(!headA||!headB)
+            return nullptr;
+
+        int lenA=0;
+        int lenB=0;
+        ListNode* _headA=headA;
+        ListNode* _headB=headB;
+        while(_headA)
+        {
+            ++lenA;
+            _headA=_headA->next;
+        }
+        while(_headB)
+        {
+            ++lenB;
+            _headB=_headB->next;
+        }
+
+        int tmp=abs(lenA-lenB);
+        if(lenA>lenB)
+        {
+            while(tmp--)
+                headA=headA->next;
+        }
+        else
+        {
+            while(tmp--)
+                headB=headB->next;
+        }
+        while(headA&&headB)
+        {
+            if(headA==headB)
+                return headA;
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return nullptr;
+    }
+};
+*/
