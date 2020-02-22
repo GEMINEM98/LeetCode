@@ -1,0 +1,33 @@
+
+/*
+前后指针：
+先将nums存一份到tmp中，将tmp排序后和nums进行前后双向对比，找到不同的返回范围。
+*/
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        vector<int> tmp(nums);
+        sort(tmp.begin(),tmp.end());
+        int i=0;
+        int j=tmp.size()-1;
+        int left=-1;
+        int right=-1;
+        
+        while(i<j)
+        {
+            if(nums[i]==tmp[i])
+                ++i;
+            else
+                left=i;
+            if(nums[j]==tmp[j])
+                --j;
+            else
+                right=j;
+
+            if(left!=-1 && right!=-1)
+                break;
+        }
+        if(i>=j) return 0;
+        return right-left+1;
+    }
+};
