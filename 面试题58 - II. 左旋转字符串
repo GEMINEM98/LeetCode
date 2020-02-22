@@ -1,0 +1,29 @@
+
+/*
+三个reverse解决问题：
+例：ab cdefg
+    ba cdefg
+    ba gfedc
+ -> cdefg ab
+*/
+class Solution {
+public:
+    void swap(char& c1,char& c2)
+    {
+        char c=c1;
+        c1=c2;
+        c2=c;
+    }
+    void reverse(string& s,int start,int end)
+    {
+        while(start<end)
+            swap(s[start++],s[end--]);
+    }
+
+    string reverseLeftWords(string s, int n) {
+        reverse(s,0,n-1);
+        reverse(s,n,s.size()-1);
+        reverse(s,0,s.size()-1);
+        return s;
+    }
+};
