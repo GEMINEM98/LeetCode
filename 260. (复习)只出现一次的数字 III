@@ -1,0 +1,33 @@
+
+/*
+思路：
+先将全部元素异或，tmp表示两个单一整数的异或结果。
+取出tmp这个异或结果是1的最低位，将这个低位是1其他位是0的32位合成一个整数flag；
+flag中是1的那个位，是两个单一整数对应位异或的结果，所以这两个数中，一个数在该位上是1，另一个数在该位上是0；
+根据这个位是1/0，将所有元素分成两部分，这两部分分别存在一个单一整数；
+将这两部分分别全部异或，就得出两个单一整数。
+*/
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int ret1=0;
+        int ret2=0;
+
+        int tmp=0;
+        for(int e:nums)
+        {
+            tmp^=e;
+        }
+        int flag=tmp&(-tmp);
+        // flag存的是tmp的32位中最低位是1，其他位是0的整数。
+
+        for(int e:nums)
+        {
+            if((e & flag) == flag)
+                ret1^=e;
+            else
+                ret2^=e;
+        }
+        return {ret1,ret2};
+    }
+};
