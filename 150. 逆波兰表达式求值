@@ -1,0 +1,40 @@
+
+/*
+思路：
+用栈存入数据，如果当前字符是目标符号，不用入栈，并且出栈两个操作数，进行计算；
+注意：字符串和整数的转换。
+将计算得出的整数转换成字符串，入栈。
+循环以上步骤，直到所有字符串遍历完毕。
+*/
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<string> st;
+        int a=INT_MAX;
+        int b=INT_MAX;
+        int ret=0;
+        for(int i=0;i<tokens.size();++i)
+        {
+            if(tokens[i]=="+"||tokens[i]=="-"||tokens[i]=="*"||tokens[i]=="/")
+            {
+                //a=atoi(st.top().c_str());
+                a=stoi(st.top());
+                st.pop();
+                //b=atoi(st.top().c_str());
+                b=stoi(st.top());
+                st.pop();
+                if(tokens[i]=="+")
+                    ret=a+b;
+                else if(tokens[i]=="-")
+                    ret=b-a;
+                else if(tokens[i]=="*")
+                    ret=a*b;
+                else if(tokens[i]=="/")
+                    ret=b/a;
+                st.push(to_string(ret));
+            }
+            else st.push(tokens[i]);
+        }
+        return stoi(st.top());
+    }
+};
