@@ -1,0 +1,21 @@
+
+/*
+思路：
+根据题目：空格是间隔，为了防止最后一个元素被漏掉，所以先给s后面加上一个' '；
+遍历s，遇到空格就++，但是可能会出现连续空格，所以判断' '前一个元素和它本身即可。
+*/
+class Solution {
+public:
+    int countSegments(string s) {
+        s+=' ';
+        int count=0;
+        for(int i=1;i<s.size();++i)
+        {
+            if(s[i-1]!=' '&&s[i]==' ')
+            {
+                ++count;
+            }
+        }
+        return count;
+    }
+};
