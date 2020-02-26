@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ /*
+ 思路：
+ 二叉搜索树的中序遍历(左根右)是升序排序，所以将升序排序好的二叉树结点存入vector数组中，反向取倒数第k个结点。
+ */
+class Solution {
+public:
+
+    void _kthLargest(TreeNode* root,vector<int>& v)
+    {
+        if(root==nullptr)
+            return;
+
+        _kthLargest(root->left,v);
+        v.push_back(root->val);
+        _kthLargest(root->right,v);
+    }
+
+    int kthLargest(TreeNode* root, int k) {
+
+        if(root==nullptr)
+            return 0;
+
+        vector<int> v;
+        _kthLargest(root,v);
+        return v[v.size()-k];
+    }
+};
