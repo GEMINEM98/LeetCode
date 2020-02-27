@@ -1,0 +1,40 @@
+
+// 顺时针循环遍历每一行每一列，在边界条件上要注意上、下、左、右的跨度。
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> v;
+        if(matrix.empty())
+            return v;
+
+        int s=0;  // 上
+        int x=matrix.size()-1;  // 下
+        int z=0;  // 左
+        int y=matrix[0].size()-1;  // 右
+
+        while(1)
+        {
+            for(int i=z;i<=y;++i)           // 从左向右
+                v.push_back(matrix[s][i]);
+
+            ++s;
+            if(s>x) break;
+            for(int i=s;i<=x;++i)           // 从上向下
+                v.push_back(matrix[i][y]);
+
+            --y;
+            if(y<z) break;
+            for(int i=y;i>=z;--i)           // 从右向左
+                v.push_back(matrix[x][i]);
+
+            --x;
+            if(x<s) break;
+            for(int i=x;i>=s;--i)           // 从下向上
+                v.push_back(matrix[i][z]);
+            
+            ++z;
+            if(z>y) break;
+        }
+        return v;
+    }
+};
