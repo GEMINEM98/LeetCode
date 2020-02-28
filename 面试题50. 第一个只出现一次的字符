@@ -1,0 +1,18 @@
+
+// 用unordered_map给数组进行计数，遍历s，看当前字符的个数是否是1.
+class Solution {
+public:
+    char firstUniqChar(string s) {
+        unordered_map<char,int> um;
+        for(auto& e:s)
+        {
+            um[e]++;
+        }
+        for(auto& e:s)
+        {
+            if(um[e]==1)
+                return e;
+        }
+        return ' ';
+    }
+};
