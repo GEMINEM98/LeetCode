@@ -1,0 +1,60 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+// 前后指针：让前指针先走k步，然后前后指针一起走剩下的结点，当前指针为空，后指针指向的位置就是倒数第k个结点的位置。
+class Solution {
+public:
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        if(!head)
+            return NULL;
+        
+        ListNode* p1=head;
+        ListNode* p2=head;
+
+        while(k--&&p1)
+        {
+            p1=p1->next;
+        }
+        while(p1)
+        {
+            p1=p1->next;
+            p2=p2->next;
+        }
+        return p2;
+    }
+};
+
+
+
+ // 遍历链表，用链表总的结点数-后面要输出的结点数，就是需要走过的结点；
+ // 再次遍历链表，走过前面的结点，返回后面结点的指针。
+class Solution {
+public:
+    ListNode* getKthFromEnd(ListNode* head, int k) {
+        
+        if(!head)
+            return NULL;
+
+        int count=0;
+        ListNode* tmp=head;
+        while(head)
+        {
+            ++count;
+            head=head->next;
+        }
+
+        int num=count-k;
+        while(num--)
+        {
+            tmp=tmp->next;
+        }
+        return tmp;
+
+    }
+};
