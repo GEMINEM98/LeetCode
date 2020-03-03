@@ -1,0 +1,37 @@
+
+/* 双指针：两个指针分别从A和B的后面向前遍历，将大的存到A的后半部分；
+   从后向前遍历的好处是 不会覆盖掉A中的元素，当A遍历完成之后，将B剩下的元素直接放到A的前半部分。
+   因为A和B本身就是升序排列的。
+*/
+class Solution {
+public:
+    void merge(vector<int>& A, int m, vector<int>& B, int n) {
+        int a=m-1;
+        int b=n-1;
+        int c=m+n-1;
+        while(a>=0&&b>=0)
+        {
+            if(A[a]>=B[b])
+                A[c--]=A[a--];
+            else A[c--]=B[b--];
+        }
+        while(b>=0)
+            A[c--]=B[b--];
+    }
+};
+
+   // 直接将B添加到A中，再对A进行排序。
+// class Solution {
+// public:
+//     void merge(vector<int>& A, int m, vector<int>& B, int n) {
+//         int j=m;
+//         for(int i=0;i<n;++i)
+//         {
+//             A[j]=B[i];
+//             ++j;
+//         }
+//         sort(A.begin(),A.end());
+//         return;
+//     }
+// };
+
