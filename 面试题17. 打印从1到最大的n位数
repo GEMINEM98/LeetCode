@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> printNumbers(int n) {
+        vector<int> v;
+        if(n==0)
+            return v;
+        int maxnum=9;
+        n--;
+        while(n--)
+        {
+            maxnum=maxnum*10+9;
+        }
+        for(int i=1;i<=maxnum;++i)
+        {
+            v.push_back(i);
+        }
+        return v;
+    }
+};
