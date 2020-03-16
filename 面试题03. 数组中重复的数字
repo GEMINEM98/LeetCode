@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        unordered_set<int> us;
+        for(auto& e:nums)
+        {
+            if(us.find(e)!=us.end())
+                return e;
+            else us.insert(e);
+        }
+        return 0;
+    }
+};

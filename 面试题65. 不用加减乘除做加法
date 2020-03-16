@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int add(int a, int b) {
+        while(b)
+        {
+            int tmp=a^b;      // 求和，相同位置0，相反位置1。
+            b=(unsigned int)(a&b)<<1;   // 计算进位. 先保留同为1的位，都为1的位要向左进位。
+            a=tmp;
+        }
+        return a;
+    }
+};
