@@ -1,0 +1,9 @@
+
+// https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
+class Solution {
+public:
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        sort(arr.begin(),arr.end());
+        return {arr.begin(),arr.begin()+k};
+    }
+};
