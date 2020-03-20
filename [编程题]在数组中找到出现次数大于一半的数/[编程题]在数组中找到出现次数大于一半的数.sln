@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "[编程题]在数组中找到出现次数大于一半的数", "[编程题]在数组中找到出现次数大于一半的数\[编程题]在数组中找到出现次数大于一半的数.vcxproj", "{7145146B-572A-417A-9751-6F929D444369}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7145146B-572A-417A-9751-6F929D444369}.Debug|x64.ActiveCfg = Debug|x64
+		{7145146B-572A-417A-9751-6F929D444369}.Debug|x64.Build.0 = Debug|x64
+		{7145146B-572A-417A-9751-6F929D444369}.Debug|x86.ActiveCfg = Debug|Win32
+		{7145146B-572A-417A-9751-6F929D444369}.Debug|x86.Build.0 = Debug|Win32
+		{7145146B-572A-417A-9751-6F929D444369}.Release|x64.ActiveCfg = Release|x64
+		{7145146B-572A-417A-9751-6F929D444369}.Release|x64.Build.0 = Release|x64
+		{7145146B-572A-417A-9751-6F929D444369}.Release|x86.ActiveCfg = Release|Win32
+		{7145146B-572A-417A-9751-6F929D444369}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D0878C4-1D61-4F5D-834B-1B5C52C34D40}
+	EndGlobalSection
+EndGlobal
