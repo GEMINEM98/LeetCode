@@ -1,0 +1,6 @@
+﻿  test.cpp
+c:\mycode\leetcode\单词元辅音分割\单词元辅音分割\test.cpp(49): warning C4018: “<”: 有符号/无符号不匹配
+c:\mycode\leetcode\单词元辅音分割\单词元辅音分割\test.cpp(54): warning C4018: “<”: 有符号/无符号不匹配
+c:\mycode\leetcode\单词元辅音分割\单词元辅音分割\test.cpp(59): warning C4018: “<”: 有符号/无符号不匹配
+c:\mycode\leetcode\单词元辅音分割\单词元辅音分割\test.cpp(64): warning C4018: “<”: 有符号/无符号不匹配
+  单词元辅音分割.vcxproj -> C:\mycode\LeetCode\单词元辅音分割\Debug\单词元辅音分割.exe
