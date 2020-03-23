@@ -1,0 +1,4 @@
+﻿  test.cpp
+c:\mycode\leetcode\[编程题]左右最值最大差\[编程题]左右最值最大差\test.cpp(30): warning C4018: “<=”: 有符号/无符号不匹配
+c:\mycode\leetcode\[编程题]左右最值最大差\[编程题]左右最值最大差\test.cpp(39): warning C4018: “<=”: 有符号/无符号不匹配
+  [编程题]左右最值最大差.vcxproj -> C:\mycode\LeetCode\[编程题]左右最值最大差\Debug\[编程题]左右最值最大差.exe
