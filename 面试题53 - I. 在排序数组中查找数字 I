@@ -1,0 +1,82 @@
+
+/*
+统计一个数字在排序数组中出现的次数。
+
+示例 1:
+
+输入: nums = [5,7,7,8,8,10], target = 8
+输出: 2
+
+示例 2:
+
+输入: nums = [5,7,7,8,8,10], target = 6
+输出: 0
+
+限制：
+
+0 <= 数组长度 <= 50000
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+*/
+
+//二分法
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int i=0;
+        int j=nums.size()-1;
+        int mid=0;
+        int flag=0;
+        int count=0;
+        while(i<=j)
+        {
+            mid=(i+j)/2;
+            if(nums[mid]<target)
+            {
+                i=mid+1;
+            }
+            else if(nums[mid]>target)
+            {
+                j=mid-1;
+            }
+            else
+            {
+                flag=mid;
+                ++count;
+                break;
+            }
+        }
+        
+        int x=flag-1;
+        int y=flag+1;
+        while(x>=0&&nums[x]==target)
+        {
+            count++;
+            --x;
+        }
+        while(y<nums.size()&&nums[y]==target)
+        {
+            count++;
+            ++y;
+        }
+        return count;
+    }
+};
+
+
+
+/*
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        unordered_map<int,int> um;
+        for(auto e:nums)
+        {
+            um[e]++;
+        }
+        return um[target];
+    }
+};
+*/
