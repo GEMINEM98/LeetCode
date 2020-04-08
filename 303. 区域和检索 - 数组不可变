@@ -1,0 +1,76 @@
+
+/*
+
+给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
+
+示例：
+
+给定 nums = [-2, 0, 3, -5, 2, -1]，求和函数为 sumRange()
+
+sumRange(0, 2) -> 1
+sumRange(2, 5) -> -1
+sumRange(0, 5) -> -3
+
+说明:
+
+    你可以假设数组不可变。
+    会多次调用 sumRange 方法。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/range-sum-query-immutable
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+
+// 动态规划
+class NumArray {
+public:
+    NumArray(vector<int>& nums) {
+        if(nums.size()>0)   // 防止“[[[]]]”这种
+        {
+            res.resize(nums.size(),0);
+            res[0]=nums[0];
+            for(int i=1;i<nums.size();++i)
+            {
+                res[i]=res[i-1]+nums[i];
+            }
+        }
+    }
+
+    int sumRange(int i, int j) {
+        if(i==0)
+            return res[j];
+        return res[j]-res[i-1];
+    }
+private:
+    vector<int> res;
+};
+
+
+/*
+//直接法
+class NumArray {
+public:
+    NumArray(vector<int>& nums) {
+        num=nums;
+    }
+    
+    int sumRange(int i, int j) {
+        int res=0;
+        for(int m=i;m<=j;++m)
+        {
+            res+=num[m];
+        }
+        return res;
+    }
+private:
+    vector<int> num;
+};
+*/
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * int param_1 = obj->sumRange(i,j);
+ */
