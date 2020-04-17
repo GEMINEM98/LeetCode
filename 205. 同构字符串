@@ -31,7 +31,6 @@
 
 */
 
-
 // //大佬的代码
 // class Solution {
 // public:
@@ -47,25 +46,20 @@
 //哈希映射
 class Solution {
 public:
-    bool isIsomorphic(string s, string t) 
-    {
-        unordered_map<char,int> ums;//不允许重复
-        unordered_map<char,int> umt;
+    bool isIsomorphic(string s, string t) {
+        if(s.length()!=t.length())
+            return false;
 
-        for(int i =0;i<s.size();i++)
+        unordered_map<char,char>smap;
+        unordered_map<char,char>tmap;
+        for(int i = 0;i<s.length();i++)
         {
-            if(ums.count(s[i])&&umt.count(t[i]))
-            {   //count()，返回的是被查找元素的个数。如果有，返回1；否则，返回0。
-                if(ums[s[i]]!=umt[t[i]])
-                    return false;
-            }
-            else if(ums.count(s[i]) || umt.count(t[i]))
+            if(smap[s[i]]&&smap[s[i]]!=t[i])
                 return false;
-            else
-            {
-                ums[s[i]]=i;
-                umt[t[i]]=i;
-            }
+            if(tmap[t[i]]&&tmap[t[i]]!=s[i])
+                return false;
+            smap[s[i]] = t[i];
+            tmap[t[i]] = s[i];
         }
         return true;
     }
