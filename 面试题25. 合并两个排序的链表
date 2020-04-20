@@ -1,0 +1,79 @@
+
+/*
+
+输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+
+示例1：
+
+输入：1->2->4, 1->3->4
+输出：1->1->2->3->4->4
+
+限制：
+
+0 <= 链表长度 <= 1000
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+/*
+    l1链表作为返回结果，遍历l2，将l2插入到l1的合适位置，返回l1。
+*/
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1)
+            return l2;
+        if(!l2)
+            return l1;
+
+        ListNode* res_cur=l1;  // l1链表的指针
+        ListNode* res_prev=NULL;
+
+        ListNode* cur=l2;      // l2链表的指针
+
+        while(cur!=NULL&&res_cur!=NULL)
+        {
+            if(cur->val>=res_cur->val)  // 在l1中找位置插入l2结点
+            {
+                res_prev=res_cur;
+                res_cur=res_cur->next;
+            }
+            else
+            {
+                if(res_prev!=NULL)      // 在l1链表中间插入l2结点
+                {
+                    ListNode* cur_next=cur->next; // 保存cur下一个结点，防止断开链表的前后关系
+                    res_prev->next=cur;
+                    cur->next=res_cur;
+
+                    res_prev=cur;
+                    cur=cur_next;
+                }
+                else                    // 在l1链表头部插入l2结点
+                {
+                    l1=cur;  //这种情况只发生在链表头。
+                    ListNode* cur_next=cur->next; // 保存cur下一个结点，防止断开链表的前后关系
+                    cur->next=res_cur;
+                    res_prev=cur;
+                    cur=cur_next;
+                }
+            }
+        }
+        if(cur!=NULL)  // 最后将剩余的链表，归入返回结果链表
+            res_prev->next=cur;
+        return l1;
+    }
+};
