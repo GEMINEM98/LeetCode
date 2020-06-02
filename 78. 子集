@@ -1,20 +1,44 @@
 
+// 回溯法：递归
+class Solution {
+public:
+    vector<vector<int>> vv;
+    void _subsets(vector<int>& nums,int index,vector<int>& v)
+    {
+        // 不可重复回溯
+        for(int i=index;i<nums.size();++i)
+        {
+            v.push_back(nums[i]);  // 做选择
+            vv.push_back(v);
+            _subsets(nums,i+1,v);  // 回溯
+            v.pop_back();   // 撤销选择
+        }
+
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> v;
+        vv.push_back(v);
+        _subsets(nums,0,v);
+        return vv;
+    }
+};
+
+
+
 /*
 思路：非递归
-首先空集是子集，然后遍历数组，没经过一个元素，就将元素添加到之前的集合中组成新的集合。
+首先空集是子集，然后遍历数组，每经过一个元素，就将元素添加到之前的集合中组成新的集合。
 比如{1,2,3}，空集{}存入v；接着将1添加到{}中组成{1}，再将{1}存入v，此时v中有了{}和{1}；
 接着将2添加到{}、{1}中组成{2}、{1,2}，再将{2}、{1,2}存入v，此时v中有了{}、{1}、{2}、{1,2}；
 循环以上步骤。
-*/
+
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> v(1); // 预留一个空间，因为有空集
-        sort(nums.begin(),nums.end());
         for(int i=0;i<nums.size();++i)
         {
             int sz=v.size();
-            //for(int j=0;j<v.size();++j)  //这个的效率会差一点，因为会重复计算v.size()，可能超出内存
             for(int j=0;j<sz;++j)
             {
                 v.push_back(v[j]);
@@ -24,3 +48,4 @@ public:
         return v;
     }
 };
+*/
