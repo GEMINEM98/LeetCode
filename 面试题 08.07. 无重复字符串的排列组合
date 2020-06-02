@@ -1,0 +1,78 @@
+
+/*
+
+无重复字符串的排列组合。编写一种方法，计算某字符串的所有排列组合，字符串每个字符均不相同。
+
+示例1:
+
+ 输入：S = "qwe"
+ 输出：["qwe", "qew", "wqe", "weq", "ewq", "eqw"]
+
+示例2:
+
+ 输入：S = "ab"
+ 输出：["ab", "ba"]
+
+提示:
+
+    字符都是英文字母。
+    字符串长度在[1, 9]之间。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/permutation-i-lcci
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+/*  直接调用全排列函数
+
+class Solution {
+public:
+    vector<string> permutation(string S) {
+        vector<string> v;
+        sort(S.begin(),S.end());
+        v.push_back(S);   // 先包含S本身
+        while(next_permutation(S.begin(),S.end())) // next_permutation()返回的是bool
+        {
+            // 注意这里面不会包含原来S本身，所以，在循环之前，先包含S本身。
+            v.push_back(S); 
+        }
+        return v;
+    }
+};
+
+*/
+
+
+class Solution {
+public:
+
+    // 不可重复回溯：相当于每一层选择一个进行排列组合
+    // 可重复回溯：相当于每一层都有nums.length 个选择 进行排列组合
+
+    // 这道题选择：在可重复回溯中，选不可重复
+
+    void _permutation(vector<string>& v,string s,string& S)
+    {
+        if(s.length()==S.length())  // 结束条件
+        {
+            v.push_back(s);
+            return;
+        }
+        for(int i=0;i<S.length();++i)
+        {
+            if(find(s.begin(),s.end(),S[i])==s.end()) // 去重，保证s中没有重复的元素
+            { 
+                s+=S[i];  // 做选择
+                _permutation(v,s,S);  // 回溯
+                s.erase(s.length()-1,1);  // 撤销选择
+            }
+        }
+    }
+    vector<string> permutation(string S) {
+        vector<string> v;
+        string s="";
+        _permutation(v,s,S);  // 可重复回溯，不用加层数
+        return v;
+    }
+};
