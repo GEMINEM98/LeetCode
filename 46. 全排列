@@ -22,6 +22,7 @@
 
 */
 
+// 回溯算法：
 class Solution {
 public:
 
@@ -52,3 +53,21 @@ public:
         return vv;
     }
 };
+
+
+/*  用全排列next_permutation()函数：
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> vv;
+        sort(nums.begin(),nums.end());
+        vv.push_back(nums);
+        while(next_permutation(nums.begin(),nums.end()))
+        {
+            vv.push_back(nums);
+        }
+        return vv;
+    }
+};
+*/
