@@ -1,4 +1,15 @@
 
+class Solution {
+public:
+    int sumNums(int n) {
+        // 下面是两种方法，都可以，对于&&，左边不成立，右边不用算；对于||，左边成立，右边不用算。
+        // n&&(n+=sumNums(n-1));
+        n==0||(n+=sumNums(n-1));
+        return n;
+    }
+};
+
+
 /*
 递归实现：
 */
