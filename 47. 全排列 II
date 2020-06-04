@@ -1,0 +1,73 @@
+
+/*
+
+给定一个可包含重复数字的序列，返回所有不重复的全排列。
+
+示例:
+
+输入: [1,1,2]
+输出:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/permutations-ii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+class Solution {
+public:
+    /*
+    固定一个数的位置(index)，然后从下一位数再开始全排列(递归过程)...直到最后一位数
+    因为结果不重复，所以先sort，再if(i!=index&&nums[i]==nums[index])去掉重复的index
+    */
+
+    void _permuteUnique(vector<vector<int>>& vv,vector<int> nums,int index)
+    {
+        if(index==nums.size()-1)
+        {
+            vv.push_back(nums);
+            return;
+        }
+        for(int i=index;i<nums.size();++i)
+        {
+            if(i!=index&&nums[index]==nums[i])
+                continue;
+            else
+            {
+                swap(nums[index],nums[i]);
+                _permuteUnique(vv,nums,index+1);
+            }
+        }
+    }
+
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> vv;
+        sort(nums.begin(),nums.end());
+        _permuteUnique(vv,nums,0);
+        return vv;
+    }
+};
+
+
+
+/* 用全排列函数：
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> vv;
+        sort(nums.begin(),nums.end());
+        vv.push_back(nums);
+
+        while(next_permutation(nums.begin(),nums.end()))
+        {
+            vv.push_back(nums);
+        }
+        return vv;
+    }
+};
+*/
