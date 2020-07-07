@@ -1,0 +1,47 @@
+
+/*
+
+配对交换。编写程序，交换某个整数的奇数位和偶数位，尽量使用较少的指令（也就是说，位0与位1交换，位2与位3交换，以此类推）。
+
+示例1:
+
+ 输入：num = 2（或者0b10）
+ 输出 1 (或者 0b01)
+
+示例2:
+
+ 输入：num = 3
+ 输出：3
+
+提示:
+
+    num的范围在[0, 2^30 - 1]之间，不会发生整数溢出。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/exchange-lcci
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+*/
+
+class Solution {
+public:
+    int exchangeBits(int num) {
+        bitset<32> bs(num);  // 长度为32，将num的二进制保存，前面用0补充
+        int tmp;
+        for(int i=0; i<32; i+=2){
+            tmp = bs[i];
+            bs[i] = bs[i+1];
+            bs[i+1] = tmp;
+        }
+
+        return bs.to_ulong();
+        /*
+        to_ulong()是用来控制bitset中的输出宽度的，输出与bitset<宽度> 名称(初始值)    to_ulong()可以控制输出的最大限度，
+        例如：
+        宽度是4，那么在输出时，每次结果都是 模除 2^4 - 1；
+        如果宽度是5 那么结果都是 结果模除 2^5 - 1；
+        ... ...
+        注意：这个to_ulong() 只能用于bitset。
+        */
+    }
+};
