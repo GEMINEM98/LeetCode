@@ -1,0 +1,40 @@
+
+/*
+https://www.nowcoder.com/practice/1f7280d9897d4305b2da6790fe131729?tpId=113&&tqId=33510&rp=1&ru=/ta/job-code-basic&qru=/ta/job-code-basic/question-ranking
+ 众所周知，牛妹非常喜欢吃蛋糕。
+第一天牛妹吃掉蛋糕总数三分之一（向下取整）多一个，第二天又将剩下的蛋糕吃掉三分之一（向下取整）多一个，以后每天吃掉前一天剩下的三分之一（向下取整）多一个，到第n天准备吃的时候只剩下一个蛋糕。
+牛妹想知道第一天开始吃的时候蛋糕一共有多少呢？
+
+示例1
+输入
+2
+输出
+3
+
+示例2
+输入
+4
+输出
+10
+
+*/
+
+class Solution {
+public:
+    /**
+     * 
+     * @param n int整型 只剩下一只蛋糕的时候是在第n天发生的．
+     * @return int整型
+     */
+    // 递推关系：(2/3)*x1 - 1 = x2
+    //                   x1 = (3 + 3*x2) / 2;
+    int cakeNumber(int n) {
+        // write code here
+        int x=1;
+        for(int i=0;i<n-1;++i)
+        {
+            x=(3+3*x)/2;
+        }
+        return x;
+    }
+};
