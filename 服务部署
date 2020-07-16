@@ -1,0 +1,130 @@
+
+/*
+
+链接：https://www.nowcoder.com/questionTerminal/32fed9bb4436404ea55619dba5316f5a?orderByHotValue=1&mutiTagIds=2678&page=1&onlyReference=false
+来源：牛客网
+
+小v是公司的运维工程师，现有一个有关应用程序部署的任务如下：
+
+    1、一台服务器的磁盘空间、内存是固定的，现在有N个应用程序要部署；
+    2、每个应用程序所需要的磁盘、内存不同，每个应用程序允许访问的用户数也不同，且同一个应用程序不能在一台服务器上部署多个。
+
+对于一台服务器而言，如何组合部署应用程序能够使得单台服务器允许访问的用户数最多？
+
+输入描述:
+
+输入包括三个参数，空格分隔，分别表示服务器的磁盘大小、内存大小，以及应用程序列表；
+其中第三个参数即应用程序列表，表述方式为：多个应用程序信息之间用 '#' 分隔，每个应用程序的信息包括 ',' 分隔的部署所需磁盘空间、内存、允许访问的用户量三个数字；比如 50,20,2000 表示部署该应用程序需要50G磁盘空间，20G内存，允许访问的用户数是2000
+
+
+
+输出描述:
+
+单台服务器能承载的最大用户数
+
+示例1
+输入
+
+15 10 5,1,1000#2,3,3000#5,2,15000#10,4,16000
+
+输出
+
+31000
+
+说明
+
+组合部署服务5,2,15000、10,4,16000  ，可以让单台服务器承载最大用户数31000
+
+*/
+
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include<vector>
+
+using namespace std;
+
+/*
+* Welcome to vivo !
+*/
+
+int getCountOfApp(const char* input){
+    if(NULL == input){
+        return 0;
+    }
+    int cnt = 0;
+    for(int i=0;input[i]!=0;++i){
+        if(input[i] == ','){
+            ++cnt;
+        }
+    }
+    return cnt/2;
+}
+
+//id start from 0
+int getPositionOfApp(const char* input, const int id){
+    int cntOfComma = id*2 + 1;
+    int i=0;
+    for(;input[i]!=0&&cntOfComma!=0;++i){
+        if(input[i] == ','){
+            --cntOfComma;
+        }
+    }
+    while(input[--i]!=' '&&input[i]!='#');
+    return i+1;
+}
+
+#define APP_MAX 1000
+#define DP_MAX 2048
+int disks[APP_MAX];
+int mems[APP_MAX];
+int users[APP_MAX];
+int dp[DP_MAX*DP_MAX];
+
+int solution(const char* input){
+    const int countOfApp = getCountOfApp(input);
+    if(0 == countOfApp){
+        return 0;
+    }
+    int res = 0;
+
+    int disk = 0;
+    int mem = 0;
+
+    sscanf(input, "%d %d", &disk, &mem);
+
+    for(int i=0; i< countOfApp;++i){
+        const int pos = getPositionOfApp(input, i);
+        sscanf(input+pos, "%d,%d,%d", &disks[i], &mems[i], &users[i]);
+    }
+
+    // TODO Write your code here!
+    
+    vector<vector<vector<int>>> vvv(countOfApp+1,vector<vector<int>>(disk+1,vector<int>(mem+1)));
+    for(int i=1;i<vvv.size();++i)
+    {
+        for(int j=disk;j>0;--j)
+        {
+            for(int k=mem;k>0;--k)
+            {
+                if(j>=disks[i-1]&&k>=mems[i-1])
+                {
+                    vvv[i][j][k]=max(vvv[i-1][j-disks[i-1]][k-mems[i-1]]+users[i-1], vvv[i-1][j][k]);
+                }
+                else
+                {
+                    vvv[i][j][k]=vvv[i-1][j][k];
+                }
+            }
+        }
+    }
+
+    return vvv[countOfApp][disk][mem];
+}
+
+int main(int argc, char* args[])
+{
+    char input[10000];
+    cin.getline(input,10000);
+    cout<<solution(input)<<endl;
+}
