@@ -1,0 +1,76 @@
+
+/*
+
+链接：https://www.nowcoder.com/questionTerminal/916c1446d019459f94743443f71b3e70?orderByHotValue=1&page=5&onlyReference=false
+来源：牛客网
+
+小v所在的公司即将举行年会，年会方案设计过程中必不可少的一项就是抽奖活动。小v在本次活动中被委以重任，负责抽奖活动的策划；为了让中奖的礼物更加精美且富有神秘感，打算采用礼品盒来包装奖品，此时小v发挥了自己的创意想捉弄一下获奖的同事，便采取了多重包装来包装奖品。
+
+现给出一个字符串，并假定用一对圆括号( )表示一个礼品盒，0表示奖品，你能据此帮获奖者算出最少要拆多少个礼品盒才能拿到奖品吗？
+
+输入描述:
+
+一行字符串，仅有'('、')'、'0' 组成，其中一对'(' ')'表示一个礼品盒，‘0’表示奖品；输入的字符串一定是有效的，即'(' ')'一定是成对出现的。
+
+
+
+输出描述:
+
+输出结果为一个数字，表示小v要拆的最少礼品盒数量
+
+示例1
+输入
+
+(()(()((()(0)))))
+
+输出
+
+5
+
+示例2
+输入
+
+(((0)))
+
+输出
+
+3
+
+*/
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+/**
+ * Welcome to vivo !
+ */
+ 
+int solution(string str)
+{
+    // TODO Write your code here!
+	if(str.length()<2)
+        return 0;
+	int sum = 0;
+    int left=0;
+    while(str[left]!='0'&&left<str.length())
+    {
+        if(str[left]=='(')
+            ++sum;
+        if(str[left]==')')
+            --sum;
+        ++left;
+    }
+
+	return sum;
+}
+
+int main()
+{
+	string str("");
+	getline(cin, str);
+
+	int sum = solution(str);
+	cout << sum << endl;
+	return 0;
+}
