@@ -1,0 +1,84 @@
+
+/*
+链接：https://www.nowcoder.com/questionTerminal/14c0359fb77a48319f0122ec175c9ada?answerType=1&f=discussion
+来源：牛客网
+
+有三种葡萄，每种分别有a,b,c颗。有三个人，第一个人只吃第1,2种葡萄，第二个人只吃第2,3种葡萄，第三个人只吃第1,3种葡萄。
+适当安排三个人使得吃完所有的葡萄,并且且三个人中吃的最多的那个人吃得尽量少。
+
+输入描述:
+
+第一行数字T\mathit TT，表示数据组数。
+接下来T\mathit  TT行，每行三个数a,b,c\mathit a,b,ca,b,c
+1≤a,b,c≤1018,1≤T≤101 \leq a,b,c \leq 10^{18} , 1 \leq T \leq 101≤a,b,c≤1018,1≤T≤10
+
+
+
+输出描述:
+
+对于每组数据，输出一行一个数字表示三个人中吃的最多的那个人吃的数量。
+
+示例1
+输入
+
+2
+1 2 3
+1 2 6
+
+输出
+
+2
+3
+
+示例2
+输入
+
+1
+12 13 11
+
+输出
+
+12
+*/
+
+/* 大佬的思路：
+将一组三个葡萄数想像成三条线段，如果能构成三角形（符合两短相加大于长），则三个人一人吃掉相邻两条边的一半就可以；
+如果不能构成三角形（即有一超长边），那么要把超长边平分给两个人吃，相当于折断长边，现在有4条边肯定能构成四边形，那么有两种情况：
+    两个人吃完长边后不再吃短边，第三人吃完短边也没有超出另两个人；
+    两人吃完长边后，如果不帮第三人吃两个短边，会使第三人吃的超过2人。 
+第一种情况的输出就是长边的1/2；第二种情况则与三角形情况相同，需要所有人均分。
+因此，综合来看只有两种情况：所有人平分，或者其中两人平分最多的那种葡萄。这两个哪个大，输出哪个。
+*/
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void Sort(vector<long long>& v)
+{
+    if(v[0]<v[1]) swap(v[0],v[1]);
+    if(v[0]<v[2]) swap(v[0],v[2]);
+    if(v[1]<v[2]) swap(v[1],v[2]);
+}
+ 
+int main()
+{
+    int n=0;
+    cin >> n;
+    long long a,b,c;
+    vector<vector<long long>> vv;
+    vector<long long> res;
+    for(int i=0;i<n;++i)
+    {
+        cin >> a >> b >> c;
+        vv.push_back({a,b,c});
+        Sort(vv[i]);
+        long long sum=a+b+c;
+        res.push_back(max((sum+2)/3,(vv[i][0]+1)/2));
+    }
+    for(auto& e:res)
+    {
+        cout << e << endl;
+    }
+    return 0;
+}
