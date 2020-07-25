@@ -1,0 +1,110 @@
+
+/*
+
+链接：https://www.nowcoder.com/questionTerminal/c70862fdfd4741fa9e614044838ac009
+来源：牛客网
+
+给定字串A和字符集B，求在A中包含了B所有字符的最小子串
+
+输入描述:
+
+输入一行字串（不会为空）
+ABAKJSDYUIWNQJNDSAHDBALSDH
+输入一个字符集（不会为空，也不会出现重复字符）
+ABD
+
+
+
+输出描述:
+
+输出包含了字符集所有字符的第一个最小子串，例如上面的输入对应输出DBA
+如果没有符合条件的子串，则输出#
+
+示例1
+输入
+
+ABAKJSDYUIWNQJNDSAHDBALSDH
+ABD
+
+输出
+
+DBA
+
+*/
+
+/*
+滑动窗口：（1）在s1上，左指针l，右指针r，判断两个指针中间的字符串是否包含s2；
+	 （2）如果包含，l++，继续执行（1）；
+	 （3）如果不包含，r++，继续执行（1）；
+*/
+#include<iostream>
+#include<unordered_map>
+#include<string>
+#include<stdlib.h>
+using namespace std;
+
+bool func(string s1, string s2) // 判断s2是否是s1的非连续子串
+{
+	if (s1.length() == 0)
+		return false;
+	for (int i = 0; i < s2.length(); ++i)
+	{
+		if (s1.find(s2[i]) == string::npos)
+			return false;
+	}
+	return true;
+}
+
+int main()
+{
+	string s1 = "";
+	string s2 = "";
+	cin >> s1 >> s2;
+    
+    if (s1 == s2)
+	{
+		cout << s2 << endl;
+		system("pause");
+		return 0;
+	}
+
+	int l = 0;
+	int r = 1;
+	string tmp = "";
+	tmp += s1[0];
+	unordered_map<string, int> um;
+	while (l < r && r < s1.length())
+	{
+		if (func(tmp, s2)) // 判断s2是否是tmp的非连续子串
+		{
+			//um.insert(make_pair(tmp, 1)); // 两种写法
+            um.insert(pair<string,int>(tmp, 1));
+			++l;
+			tmp.erase(0, 1);
+		}
+		else
+		{
+			tmp += s1[r];
+			++r;
+		}
+	}
+
+	auto it = um.begin();
+	string res = "";
+	while (it != um.end())
+	{
+		if (it == um.begin())
+			res = it->first;
+		if (res.length() > it->first.length())
+		{
+			res = it->first;
+		}
+		++it;
+	}
+	if (res.length()!=0)
+		cout << res << endl;
+	else cout << "#" << endl;
+
+	system("pause");
+	return 0;
+}
