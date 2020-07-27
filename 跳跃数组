@@ -1,0 +1,50 @@
+
+/*
+
+链接：https://www.nowcoder.com/questionTerminal/b62396cc20824bdab05074ba3c94b143
+来源：牛客网
+
+【编程题】给出一个非负整数数组，你最初定位在数组的第一个位置，数组中的每个元素的值代表你在那个位置可以跳跃的最大长度。判断你是否能到达数组的最后一个位置。
+
+例如：A = [2,3,1,1,4]，返回 true
+
+A = [3,2,1,0,4]，返回 false
+
+*/
+
+#include<iostream>
+#include<vector>
+using namespace std;
+void func(vector<int> v)
+{
+    int res=0;
+    for(int i=0;i<v.size()-1;i+=v[i])
+    {
+    	if(v[i]==0)
+    	{
+    		cout << "flase" << endl;
+    		return;
+		}
+    	if(i==res)
+    		res+=v[i];
+    }
+    if(res==v.size()-1)
+    	cout << "true" << endl;
+    else
+    	cout << "flase" << endl;
+}
+ 
+int main()
+{
+    int n=0;
+    cin >> n;
+    vector<int> v;
+    int num=0;
+    while(n--)
+    {
+        cin >> num;
+        v.push_back(num);
+    }
+    func(v);
+    return 0;
+}
