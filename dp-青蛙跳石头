@@ -1,0 +1,35 @@
+//  4、有n块石头分别在x轴的0，1，2，…，n - 1位置上。一只青蛙在石头0，想跳到石头n - 1上。如果一只青蛙在第i块石头上，它最多可以向右跳ai。问，青蛙能否跳到n - 1？
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int n = 0;
+	while (cin >> n)
+	{
+		vector<int> dp(n, 0);
+		vector<int> res(n, 0);
+		for (auto& e : dp)
+			cin >> e;
+
+		res[0] = 1;
+		for (int i = 1; i < n; ++i)
+		{
+			for (int j = 0; j < i; ++j)
+			{
+				if (res[j] && j + dp[j] >= i)
+				{
+					res[i] = 1;
+					break;
+				}
+			}
+		}
+		if (res[n - 1] == 1)
+			cout << "yes" << endl;
+		else
+			cout << "no" << endl;
+	}
+
+	system("pause");
+	return 0;
+}
