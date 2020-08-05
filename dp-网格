@@ -1,0 +1,35 @@
+//  1、给定m行n列的网格，有一个机器人从左上角(0,0)出发，每一步可以向下或者向右走一步，问有多少种不同的方式走到右下角？
+#include<bits/stdc++.h>
+using namespace std;
+
+int dp(int m, int n)
+{
+	vector<vector<int>> v(m, vector<int>(n, 0));
+	for (int i = 0; i < m; ++i)
+	{
+		v[i][0] = 1;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		v[0][i] = 1;
+	}
+	for (int i = 1; i < m; ++i)
+	{
+		for (int j = 1; j < n; ++j)
+		{
+			v[i][j] = v[i - 1][j] + v[i][j - 1];
+		}
+	}
+	return v[m - 1][n - 1];
+}
+int main()
+{
+	int m = 0;
+	int n = 0;
+	cin >> m >> n;
+
+	cout << dp(m, n) << endl;
+
+	system("pause");
+	return 0;
+}
