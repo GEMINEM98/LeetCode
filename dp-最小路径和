@@ -1,0 +1,41 @@
+//  给定m行n列的网格，每个格子(i, j)里都有一个非负数A[i][j]，求一个从左上角(0, 0)到右下角的路径，每一步只能向下或者向右走一步，
+//  使得路径上的格子里的数字之和最小，输出最小数字和。
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int m = 0;
+	int n = 0;
+	while (cin >> m >> n)
+	{
+		vector<vector<int>> vv(m, vector<int>(n, 0));
+		for (int i = 0; i < m; ++i)
+		{
+			vector<int> v(n, 0);
+			for (auto& e : v)
+				cin >> e;
+			vv[i] = v;
+		}
+
+		vector<vector<int>> res(m, vector<int>(n, 0));
+		res[0][0] = vv[0][0];
+		for (int i = 0; i < res.size(); ++i)
+		{
+			for (int j = 0; j < res[0].size(); ++j)
+			{
+				if (i == 0 && j > 0)
+					res[i][j] = vv[i][j] + res[i][j - 1];
+				else if (j == 0 && i > 0)
+					res[i][j] = vv[i][j] + res[i - 1][j];
+				else if(i > 0 && j > 0)
+				{
+					res[i][j] = min(res[i - 1][j], res[i][j - 1]) + vv[i][j];
+				}
+			}
+		}
+		cout << res[m - 1][n - 1] << endl;
+	}
+	system("pause");
+	return 0;
+}
