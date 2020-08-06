@@ -1,0 +1,47 @@
+//有一串长度为N的小球排成一排，要求将他们全部染色，共有k种颜色，但是不能出现连续三个及以上相同颜色的珠子。输入长度N和颜色种类K，求所有染色的方法总数。
+//
+//输入示例：2 3
+//输出示例：9
+//输入示例：3 2
+//输出示例：6
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+
+	int n = 0;//长度
+	int k = 0;//颜色数
+	while (cin >> n >> k)
+	{
+		int res = 0;
+		if (n == 1)
+		{
+			res = k;
+			cout << res << endl;
+		}
+		else if (n == 2)
+		{
+			res = k * k;
+			cout << res << endl;
+		}
+		else
+		{
+			vector<int> dp(n + 1, 0);
+			dp[0] = 0;
+			dp[1] = k;
+			dp[2] = k * k;
+			for (int i = 3; i < n + 1; ++i)
+			{
+				// 当i和i-1不同色的时候，不看i-2，i有(k-1)*dp[i-1]种；
+				// 当i和i-1同色的时候，只需和i-2不同，i有(k-1)*dp[i-2]种。
+				dp[i] = (k - 1)*dp[i - 2] + (k - 1)*dp[i - 1];
+			}
+			res = dp[n];
+			cout << res << endl;
+		}
+	}
+	system("pause");
+	return 0;
+}
