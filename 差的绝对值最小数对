@@ -1,0 +1,37 @@
+//计算绝对值，给出n个正整数，要求找出相邻两个数字中差的绝对值最小的一对数字，如果有相同的，输出最前一对数。
+//2 < n <= 100
+//	输入：
+//	为两行，第一行为n，第二行为n个用空格符分开的正整数。
+//	输出：
+//	一行两个正整数，要求按照原来的顺序输出
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	int n = 0;
+	cin >> n;
+	vector<int> v(n, 0);
+	for (auto& e : v)
+		cin >> e;
+
+	int minnum = INT_MAX;
+	int i = 0;
+	int j = 1;
+	pair<int, int> res;
+	while (i < j && j < n)
+	{
+		if (minnum > abs(v[i] - v[j]))
+		{
+			res.first = i;
+			res.second = j;
+			minnum = abs(v[i] - v[j]);
+		}
+		++i;
+		++j;
+	}
+	cout << res.first << ' ' << res.second << endl;
+	system("pause");
+	return 0;
+}
