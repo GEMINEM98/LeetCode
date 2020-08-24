@@ -1,0 +1,106 @@
+
+/*
+
+链接：https://www.nowcoder.com/questionTerminal/708f0442863a46279cce582c4f508658
+来源：牛客网
+
+现有一个容量大小为V的背包和N件物品，每件物品有两个属性，体积和价值，请问这个背包最多能装价值为多少的物品？
+
+输入描述:
+
+第一行两个整数V和n。
+接下来n行，每行两个整数体积和价值。1≤N≤1000,1≤V≤20000。
+每件物品的体积和价值范围在[1,500]。
+
+
+
+输出描述:
+
+输出背包最多能装的物品价值。
+
+示例1
+输入
+
+6 3
+3 5
+2 4
+4 2
+
+输出
+
+9
+
+*/
+#include<bits/stdc++.h>
+using namespace std;
+
+// 一维数组
+int main()
+{
+    int v=0;//背包容量
+    int n=0;//n个物品
+    cin >> v >> n;
+
+    vector<int> V(1);
+    vector<int> P(1);
+    vector<int> dp(v+1,0);
+    
+    for(int i=1;i<=n;++i)
+    {
+        int vv=0;
+        int nn=0;
+        cin >> vv >> nn;
+        V.push_back(vv);
+        P.push_back(nn);
+    }
+    
+    for(int i=1;i<=n;++i)
+    {
+        for(int j=v;j>=V[i];--j)
+        {
+            dp[j]=max(dp[j],dp[j-V[i]]+P[i]);
+        }
+    }
+    cout << dp[v] << endl;
+    return 0;
+}
+
+/* 二维数组
+int main()
+{
+    int v=0;//背包容量
+    int n=0;//n个物品
+    cin >> v >> n;
+    vector<int> V(1);
+    vector<int> P(1);
+    vector<vector<int>> dp(n+1,vector<int>(v+1)); //物品n，体积是v
+    
+    for(int i=1;i<=n;++i)
+    {
+        int vv=0;
+        int nn=0;
+        cin >> vv >> nn;
+        V.push_back(vv);
+        P.push_back(nn);
+    }
+    
+    for(int i=1;i<=n;++i)//n个物品
+    {
+        for(int j=1;j<=v;++j)//容量
+        {
+            if(j<V[i])//放不下了
+                dp[i][j]=dp[i-1][j]; 
+                //放不下就等于放到上一个物品的价值，背包的剩余容量还是上一次的容量
+            
+            if(j>=V[i])//放
+                dp[i][j]=max(dp[i-1][j],dp[i-1][j-V[i]]+P[i]);
+                //[j-V[i]]表示：
+                //在放到上一个物品的基础上，背包容量减小，并加上本物品的价值
+                //放，就等于max(放到上一个物品的价值，放到本物品的价值)
+        }
+    }
+    cout << dp[n][v] << endl;
+    
+    return 0;
+}
+*/
